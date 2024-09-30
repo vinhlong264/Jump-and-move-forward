@@ -83,8 +83,6 @@ public class Player : Entity
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         return mousePos - transform.position;
     }
-
-
     #region animDots
     private void InitializeDots()
     {
