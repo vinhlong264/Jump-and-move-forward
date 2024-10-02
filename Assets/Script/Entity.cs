@@ -47,6 +47,11 @@ public class Entity : MonoBehaviour
     }
     protected RaycastHit2D isGroundDetected() => Physics2D.Raycast(Ground.position, Vector2.down, distance, mask);
 
+    public virtual void Die()
+    {
+
+    }
+
 
     protected virtual void OnDrawGizmos()
     {

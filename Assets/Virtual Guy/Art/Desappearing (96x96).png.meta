@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2972c4aed8e7d8141beb03f3f3f46459
+guid: 87d5d4b7f5f874646ba51c8f6d60506f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,127 +123,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_0
+      name: Desappearing (96x96)_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 26
-        height: 24
+        x: 0
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcf4149f3120a914ab04cd62e2eede4c
-      internalID: -342360400
+      spriteID: 1a5b1f23259b5de49b1189d0d563cb03
+      internalID: -1403484641
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_1
+      name: Desappearing (96x96)_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 5
-        width: 26
-        height: 23
+        x: 96
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6dc351cdca70e84e871d7e100816bba
-      internalID: 547751218
+      spriteID: a09fb5bb5993af64b89223d880648caf
+      internalID: -438201176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_2
+      name: Desappearing (96x96)_2
       rect:
         serializedVersion: 2
-        x: 69
-        y: 2
-        width: 23
-        height: 25
+        x: 192
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edd972109c04edc48ba3bf7d5a072f0c
-      internalID: 2119847450
+      spriteID: 83e9482efda2d5f48a7a212e06e9a654
+      internalID: -647001289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_3
+      name: Desappearing (96x96)_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 2
-        width: 24
-        height: 25
+        x: 288
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6ec32fc27f8d3743b7b51519d1c4d53
-      internalID: 738549342
+      spriteID: bc2c99e795d39c5479d032f424a01ea7
+      internalID: 292272055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_4
+      name: Desappearing (96x96)_4
       rect:
         serializedVersion: 2
-        x: 130
-        y: 4
-        width: 25
-        height: 23
+        x: 385
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b78893727a59fc548891fb6753ccec1a
-      internalID: 613793221
+      spriteID: f1016dd04bf01c342842a70e2f155087
+      internalID: 156662103
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Double Jump (32x32) 1_5
+      name: Desappearing (96x96)_5
       rect:
         serializedVersion: 2
-        x: 162
-        y: 4
-        width: 25
-        height: 23
+        x: 480
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eabd768cdc6f51e4fbbb93499a939c08
-      internalID: -1940017847
+      spriteID: 36cfb9ae4222663429822783d335d3f7
+      internalID: 921069036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Desappearing (96x96)_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5ad6d3e0a4109a4ea6ec9ed0f953dc6
+      internalID: -1387048412
       vertices: []
       indices: 
       edges: []
@@ -259,12 +280,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Double Jump (32x32) 1_0: -342360400
-      Double Jump (32x32) 1_1: 547751218
-      Double Jump (32x32) 1_2: 2119847450
-      Double Jump (32x32) 1_3: 738549342
-      Double Jump (32x32) 1_4: 613793221
-      Double Jump (32x32) 1_5: -1940017847
+      Desappearing (96x96)_0: -1403484641
+      Desappearing (96x96)_1: -438201176
+      Desappearing (96x96)_2: -647001289
+      Desappearing (96x96)_3: 292272055
+      Desappearing (96x96)_4: 156662103
+      Desappearing (96x96)_5: 921069036
+      Desappearing (96x96)_6: -1387048412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

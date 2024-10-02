@@ -2,7 +2,7 @@
 
 public class Player : Entity
 {
-    public Vector3 getDirection;
+    private Vector3 getDirection;
     public int jumpCount;
     private int currentJumpCount;
 
@@ -70,6 +70,11 @@ public class Player : Entity
         {
             rb.AddForce(getDirection.normalized * 20f, ForceMode2D.Impulse);
         }
+    }
+
+    public override void Die()
+    {
+        anim.SetTrigger("isDeath");
     }
 
     private void animatorChange()
