@@ -52,6 +52,11 @@ public class Entity : MonoBehaviour
 
     }
 
+    protected virtual void animatorChange()
+    {
+
+    }
+
 
     protected virtual void OnDrawGizmos()
     {
