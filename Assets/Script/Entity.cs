@@ -1,10 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    [Header("Colision check info")]
     [SerializeField] protected Transform Ground;
     [SerializeField] protected float distance;
     [SerializeField] protected LayerMask mask;
+
+    [SerializeField] protected Vector2 knockBack;
 
 
     protected int isFacingDirection = 1;
@@ -55,6 +59,11 @@ public class Entity : MonoBehaviour
     protected virtual void animatorChange()
     {
 
+    }
+
+    protected virtual IEnumerator isKnockBack()
+    {
+        yield return null;
     }
 
 

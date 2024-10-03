@@ -9,7 +9,6 @@ public class Player : Entity
     private int currentJumpCount;
     private float airJump = 0.1f;
     private float currentAirJump;
-    [SerializeField] private Vector2 knockBack => new Vector2(3, 10);
 
     [Header("Anim Dot")]
     [SerializeField] private GameObject dotPrefabs;
@@ -30,6 +29,8 @@ public class Player : Entity
         sr = GetComponent<SpriteRenderer>();
         currentJumpCount = jumpCount;
         currentAirJump = airJump;
+        knockBack = new Vector2(3, 10);
+
         InitializeDots();
     }
 
@@ -91,10 +92,16 @@ public class Player : Entity
         }
     }
 
+
+    public void hitEntity()
+    {
+        StartCoroutine("isKnockBack");
+    }
+
     public override void Die()
     {
-        //anim.SetTrigger("isDeath");
-        StartCoroutine("isKnockBack");
+        anim.SetTrigger("isDeath");
+        rb.bodyType = RigidbodyType2D.Static;
     }
 
     protected override void animatorChange()
@@ -103,23 +110,21 @@ public class Player : Entity
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
     #region StartCroutine
-    private IEnumerator isKnockBack()
+    protected override IEnumerator isKnockBack()
     {
         anim.SetTrigger("isHit");
         rb.velocity = new Vector2(knockBack.x * -isFacingDirection, knockBack.y);
         yield return new WaitForSeconds(0.07f);
     }
 
-    private IEnumerator isNoJump(float _second)
+    private IEnumerator isNoJump(float _second) // hiệu ứng gây hại: Xóa khả năng nhảy
     {
         noJump = true;
-        Debug.Log("Ngừng nhảy");
         yield return new WaitForSeconds(_second);
         noJump = false;
-        Debug.Log("Được nhảy");
     }
 
-    private IEnumerator increaseFallSpeed(float _second)
+    private IEnumerator increaseFallSpeed(float _second) // hiệu ứng gây hại: Rơi nhanh hơn khi ở trạng thái trên không
     {
         airJump = 0.9f;
         sr.color = Color.red;
