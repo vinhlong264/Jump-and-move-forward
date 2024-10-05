@@ -2,12 +2,12 @@
 using UnityEngine;
 public class Enemy : Entity
 {
-    protected Player player;
+    protected CharacterStatus character;
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        player = collision.gameObject.GetComponent<Player>();
+        character = collision.gameObject.GetComponent<CharacterStatus>();
 
-        if (player == null) return;
+        if (character == null) return;
     }
 
     protected virtual void DestroySelf()

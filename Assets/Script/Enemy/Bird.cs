@@ -35,20 +35,22 @@ public class Bird : Enemy
     {
         base.OnCollisionEnter2D(collision);
 
-        if (player.transform.DotTest(transform, Vector2.down))
+        if (character.transform.DotTest(transform, Vector2.down))
         {
+            character.jumpAir();
             Die();
         }
-        else
-        {
-            player.hitEntity();
-            player.StartCoroutine("isNoJump", 4f);
-        }
+        //else
+        //{
+        //    character.takeDame();
+        //    character.reverseDirection();
+        //}
     }
 
     public override void Die()
     {
         anim.SetTrigger("isDeath");
+        speed = 0;
     }
 
     protected override void DestroySelf()

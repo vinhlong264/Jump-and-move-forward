@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    private SpriteRenderer sr;
     private Vector3 getDirection;
-    public int jumpCount;
+    private int jumpCount = 5;
     private int currentJumpCount;
-    private float airJump = 0.1f;
-    private float currentAirJump;
 
     [Header("Anim Dot")]
     [SerializeField] private GameObject dotPrefabs;
@@ -18,17 +15,14 @@ public class Player : Entity
     [SerializeField] private GameObject[] Dots;
 
     //Harmful effects
-    private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
-    private bool noJump; // Biến tạo không thể nhảy
-    
+    [SerializeField] private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
 
+    private CharacterStatus characterStatus;
     protected override void Start()
     {
         base.Start();
-
-        sr = GetComponent<SpriteRenderer>();
+        characterStatus = GetComponent<CharacterStatus>();
         currentJumpCount = jumpCount;
-        currentAirJump = airJump;
         knockBack = new Vector2(3, 10);
 
         InitializeDots();
@@ -37,7 +31,7 @@ public class Player : Entity
 
     public void setUpPlayer(bool _isOppositeDirection)
     {
-        _isOppositeDirection = isOppositeDirection;
+        isOppositeDirection = _isOppositeDirection;
     }
 
 
@@ -58,13 +52,14 @@ public class Player : Entity
 
     private void InputCharacter()
     {
-        if (noJump) return;
+        if (characterStatus.noJump) return;
 
 
         if (Input.GetKey(KeyCode.Mouse0) && jumpCount > 0)
         {
             getDirection = getMouse();
-            rb.velocity = new Vector2(0, rb.velocity.y * airJump);
+            rb.velocity = new Vector2(0, rb.velocity.y * characterStatus.airJump);
+            Debug.Log(characterStatus.airJump);
             dotsActive(true);
         }
 
@@ -92,10 +87,10 @@ public class Player : Entity
         }
     }
 
-
-    public void hitEntity()
+    public void ativeJumpingAir()
     {
-        StartCoroutine("isKnockBack");
+        jumpCount++;
+        currentJumpCount = jumpCount;
     }
 
     public override void Die()
@@ -115,22 +110,6 @@ public class Player : Entity
         anim.SetTrigger("isHit");
         rb.velocity = new Vector2(knockBack.x * -isFacingDirection, knockBack.y);
         yield return new WaitForSeconds(0.07f);
-    }
-
-    private IEnumerator isNoJump(float _second) // hiệu ứng gây hại: Xóa khả năng nhảy
-    {
-        noJump = true;
-        yield return new WaitForSeconds(_second);
-        noJump = false;
-    }
-
-    private IEnumerator increaseFallSpeed(float _second) // hiệu ứng gây hại: Rơi nhanh hơn khi ở trạng thái trên không
-    {
-        airJump = 0.9f;
-        sr.color = Color.red;
-        yield return new WaitForSeconds(_second);
-        airJump = currentAirJump;
-        sr.color = new Color(1, 1, 1);
     }
 
     #endregion
