@@ -5,11 +5,10 @@ public class Entity : MonoBehaviour
 {
     [Header("Colision check info")]
     [SerializeField] protected Transform Ground;
-    [SerializeField] protected float distance;
+    [SerializeField] protected float distanceToGround;
     [SerializeField] protected LayerMask mask;
 
-    [SerializeField] protected Vector2 knockBack;
-
+    protected Vector2 knockBack;
 
     protected int isFacingDirection = 1;
     protected bool isFacingRight = true;
@@ -35,21 +34,21 @@ public class Entity : MonoBehaviour
     {
         if (x > 0 && !isFacingRight)
         {
-            isFacingController();
+            Facing();
         }
         else if (x < 0 && isFacingRight)
         {
-            isFacingController();
+            Facing();
         }
     }
 
-    protected virtual void isFacingController()
+    protected virtual void Facing()
     {
         isFacingDirection *= -1;
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
     }
-    protected RaycastHit2D isGroundDetected() => Physics2D.Raycast(Ground.position, Vector2.down, distance, mask);
+    protected bool isGroundDetected() => Physics2D.Raycast(Ground.position, Vector2.down, distanceToGround, mask);
 
     public virtual void Die()
     {
@@ -71,6 +70,6 @@ public class Entity : MonoBehaviour
     {
         if (Ground == null) return;
 
-        Gizmos.DrawLine(Ground.position, new Vector3(Ground.position.x, Ground.position.y - distance, 0));
+        Gizmos.DrawLine(Ground.position, new Vector3(Ground.position.x, Ground.position.y - distanceToGround, 0));
     }
 }

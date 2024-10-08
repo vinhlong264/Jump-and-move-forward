@@ -7,7 +7,6 @@ public class Bird : Enemy
     [Space]
     [SerializeField] private List<Transform> transformTarget = new List<Transform>();
     public int indexTarget = 0;
-    public float speed;
     protected override void Start()
     {
         base.Start();
@@ -34,27 +33,15 @@ public class Bird : Enemy
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-
-        if (character.transform.DotTest(transform, Vector2.down))
+        if (Character.transform.DotTest(transform, Vector2.down))
         {
-            character.jumpAir();
             Die();
         }
-        //else
-        //{
-        //    character.takeDame();
-        //    character.reverseDirection();
-        //}
     }
 
     public override void Die()
     {
         anim.SetTrigger("isDeath");
         speed = 0;
-    }
-
-    protected override void DestroySelf()
-    {
-        base.DestroySelf();
     }
 }

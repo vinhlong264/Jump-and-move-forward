@@ -59,7 +59,6 @@ public class Player : Entity
         {
             getDirection = getMouse();
             rb.velocity = new Vector2(0, rb.velocity.y * characterStatus.airJump);
-            Debug.Log(characterStatus.airJump);
             dotsActive(true);
         }
 
@@ -117,7 +116,8 @@ public class Player : Entity
     private Vector2 getMouse()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        return mousePos - transform.position;
+        Vector3 direction = mousePos - transform.position;
+        return direction;
     }
     #region animDots
     private void InitializeDots()
