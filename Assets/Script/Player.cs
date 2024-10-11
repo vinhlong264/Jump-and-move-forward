@@ -1,11 +1,12 @@
 ﻿using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Player : Entity
 {
     private Vector3 getDirection;
-    private int jumpCount = 5;
-    private int currentJumpCount;
+    [SerializeField] private int jumpCount;
+    [SerializeField] private int currentJumpCount;
 
     [Header("Anim Dot")]
     [SerializeField] private GameObject dotPrefabs;
@@ -15,15 +16,16 @@ public class Player : Entity
     [SerializeField] private GameObject[] Dots;
 
     //Harmful effects
-    [SerializeField] private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
+    private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
 
     private CharacterStatus characterStatus;
     protected override void Start()
     {
         base.Start();
         characterStatus = GetComponent<CharacterStatus>();
+
         currentJumpCount = jumpCount;
-        knockBack = new Vector2(3, 10);
+        knockBack = new Vector2(5, 15);
 
         InitializeDots();
     }
@@ -37,44 +39,37 @@ public class Player : Entity
 
     protected override void Update()
     {
-        InputCharacter();
 
-        if (isGroundDetected())
-        {
-            jumpCount = currentJumpCount;
-        }
+        InputCharacter();
 
         facingController(getMouse().x);
 
         animatorChange();
-
     }
 
     private void InputCharacter()
     {
-        if (characterStatus.noJump) return;
+        if (characterStatus.noJump || currentJumpCount <= 0) return;
 
 
-        if (Input.GetKey(KeyCode.Mouse0) && jumpCount > 0)
+        if (Input.GetMouseButton(0) && currentJumpCount > 0)
         {
             getDirection = getMouse();
             rb.velocity = new Vector2(0, rb.velocity.y * characterStatus.airJump);
             dotsActive(true);
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
-            if (jumpCount <= 0) return;
-
-
-            jumpCount--;
             Jump();
+            currentJumpCount--;
             dotsActive(false);
         }
     }
 
     private void Jump()
     {
+
         if (isOppositeDirection)
         {
             rb.AddForce(-getDirection.normalized * 20f, ForceMode2D.Impulse);
@@ -86,7 +81,7 @@ public class Player : Entity
         }
     }
 
-    public void ativeJumpingAir()
+    public void activeJumpingAir()
     {
         jumpCount++;
         currentJumpCount = jumpCount;
@@ -103,15 +98,26 @@ public class Player : Entity
         anim.SetBool("isJump", !isGroundDetected());
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
-    #region StartCroutine
-    protected override IEnumerator isKnockBack()
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        anim.SetTrigger("isHit");
-        rb.velocity = new Vector2(knockBack.x * -isFacingDirection, knockBack.y);
-        yield return new WaitForSeconds(0.07f);
+        if (isGroundDetected())
+        {
+            currentJumpCount = jumpCount;
+        }
     }
 
-    #endregion
+    public void isHit()
+    {
+        anim.SetTrigger("isHit");
+        StartCoroutine("isKnockBack", 0.07f);
+    }
+    protected override IEnumerator isKnockBack(float _second)
+    {
+        rb.velocity = new Vector2(knockBack.x * -isFacingDirection, knockBack.y);
+        yield return new WaitForSeconds(_second);
+    }
 
     private Vector2 getMouse()
     {

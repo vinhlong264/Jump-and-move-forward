@@ -32,16 +32,27 @@ public class Bird : Enemy
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
-        if (Character.transform.DotTest(transform, Vector2.down))
+        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
         {
-            Die();
+            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
+            if (character != null)
+            {
+                if (character.transform.DotTest(transform, Vector2.down))
+                {
+                    Die();
+                }
+                else
+                {
+                    character.takeDame();
+                    character.StartCoroutine("increaseFallSpeedIn", 3f);
+                }
+            }
         }
     }
 
     public override void Die()
     {
+        base.Die();
         anim.SetTrigger("isDeath");
-        speed = 0;
     }
 }

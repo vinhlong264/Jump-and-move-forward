@@ -60,7 +60,7 @@ public class Entity : MonoBehaviour
 
     }
 
-    protected virtual IEnumerator isKnockBack()
+    protected virtual IEnumerator isKnockBack(float _second)
     {
         yield return null;
     }

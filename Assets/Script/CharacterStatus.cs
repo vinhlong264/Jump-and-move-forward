@@ -5,6 +5,7 @@ public class CharacterStatus : MonoBehaviour
 {
     private Player player;
     private SpriteRenderer sr;
+    public int hp = 3;
 
     #region Harmful effects
     public float airJump { get; private set; } = 0.1f;
@@ -21,18 +22,17 @@ public class CharacterStatus : MonoBehaviour
 
     public void takeDame()
     {
-        player.StartCoroutine("isKnockBack");
-
-        //Player health
+        player.isHit();
+        hp--;
     }
     private void Die() => player.Die();
 
     public void reverseDirection()
     {
         player.setUpPlayer(true);
-        StartCoroutine("colorChange");
+        StartCoroutine(colorChange());
     }
-    public void jumpAir() => player.ativeJumpingAir();
+    public void jumpAir() => player.activeJumpingAir();
 
     private IEnumerator stopJumpIn(float _second) // hiệu ứng gây hại: Xóa khả năng nhảy
     {
@@ -56,7 +56,7 @@ public class CharacterStatus : MonoBehaviour
 
     private IEnumerator colorChange()
     {
-        sr.color = Color.yellow;
+        sr.color = Color.red;
         yield return new WaitForSeconds(1);
         sr.color = new Color(1, 1, 1, 1);
     }

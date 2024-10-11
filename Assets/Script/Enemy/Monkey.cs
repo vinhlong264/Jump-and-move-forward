@@ -1,11 +1,12 @@
 ﻿using Extension;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Monkey : Enemy
 {
-    [SerializeField] private float timeIdle;
-    [SerializeField] private float timeJump;
-    private bool jump;
+    [SerializeField] private float timeIdle = 2;
+    [SerializeField] private bool jump;
+    [SerializeField] private float jumpForce;
     private bool moving;
 
     protected override void Start()
@@ -16,7 +17,6 @@ public class Monkey : Enemy
     protected override void Update()
     {
         timeIdle -= Time.deltaTime;
-        timeJump -= Time.deltaTime;
 
         State();
 
@@ -34,14 +34,14 @@ public class Monkey : Enemy
         else
         {
             moving = true;
-            rb.velocity = new Vector2(2 * isFacingDirection, rb.velocity.y);
+            rb.velocity = new Vector2(speed * isFacingDirection, rb.velocity.y);
         }
 
 
         if (!isGroundDetected() && !jump)
         {
             jump = true;
-            rb.AddForce(new Vector2(0, 18f), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x , jumpForce);
         }
     }
 
@@ -49,12 +49,13 @@ public class Monkey : Enemy
     {
         if (isWallDetected())
         {
-            timeIdle = 1;
+            timeIdle = 2;
             Facing();
         }
 
         if (isGroundDetected())
         {
+            
             jump = false;
         }
     }
@@ -68,18 +69,28 @@ public class Monkey : Enemy
 
 
     protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        base.OnCollisionEnter2D(collision);
-
-        if (Character.transform.DotTest(transform, Vector2.down))
-        {
-            Die();
+    {     
+        if(collision.gameObject.GetComponent<CharacterStatus>() != null)
+        {           
+            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
+            if(character != null)
+            {
+                if (character.transform.DotTest(transform, Vector2.down))
+                {
+                    Die();
+                }
+                else
+                {
+                    character.takeDame();
+                    character.reverseDirection();
+                }
+            }
         }
     }
 
     public override void Die()
     {
+        base.Die();
         anim.SetTrigger("isDeath");
-        speed = 0;
     }
 }
