@@ -91,6 +91,5 @@ public class Monkey : Enemy
     public override void Die()
     {
         base.Die();
-        anim.SetTrigger("isDeath");
     }
 }

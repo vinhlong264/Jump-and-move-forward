@@ -21,6 +21,7 @@ public class Enemy : Entity
     public override void Die()
     {
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        anim.SetTrigger("isDeath");
     }
 
     protected override void OnDrawGizmos()

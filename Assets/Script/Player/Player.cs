@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using UnityEditor.Animations;
 using UnityEngine;
 
-public class Player : Entity
+public class Player : Entity, IObserver
 {
     private Vector3 getDirection;
     [SerializeField] private int jumpCount;
@@ -30,10 +29,10 @@ public class Player : Entity
         InitializeDots();
     }
 
-
-    public void setUpPlayer(bool _isOppositeDirection)
+    public void setUpPlayer(bool _isOppositeDirection , float _gravity)
     {
         isOppositeDirection = _isOppositeDirection;
+        rb.gravityScale = _gravity;
     }
 
 
@@ -149,6 +148,11 @@ public class Player : Entity
     {
         Vector2 dir = getMouse().normalized;
         return (Vector2)transform.position + dir * _t;
+    }
+
+    public void Notify()
+    {
+        Debug.Log("Gọi tôi");
     }
 
     #endregion

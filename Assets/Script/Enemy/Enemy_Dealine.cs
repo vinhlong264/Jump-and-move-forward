@@ -10,6 +10,20 @@ public class Enemy_Dealine : Enemy
 
     private void FixedUpdate()
     {
-        rb.velocity = Vector2.up * 2;
+        rb.velocity = Vector2.up * speed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<CharacterStatus>() != null)
+        {
+            CharacterStatus character = collision.GetComponent<CharacterStatus>();
+
+            if (character != null)
+            {
+                character.Die();
+                rb.bodyType = RigidbodyType2D.Static;
+            }
+        }
     }
 }

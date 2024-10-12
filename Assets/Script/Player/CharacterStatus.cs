@@ -6,6 +6,7 @@ public class CharacterStatus : MonoBehaviour
     private Player player;
     private SpriteRenderer sr;
     public int hp = 3;
+    private float currentGravity = 3f;
 
     #region Harmful effects
     public float airJump { get; private set; } = 0.1f;
@@ -25,11 +26,11 @@ public class CharacterStatus : MonoBehaviour
         player.isHit();
         hp--;
     }
-    private void Die() => player.Die();
+    public void Die() => player.Die();
 
     public void reverseDirection()
     {
-        player.setUpPlayer(true);
+        player.setUpPlayer(true , currentGravity);
         StartCoroutine(colorChange());
     }
     public void jumpAir() => player.activeJumpingAir();

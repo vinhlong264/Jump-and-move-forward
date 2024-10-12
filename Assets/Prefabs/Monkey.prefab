@@ -234,10 +234,9 @@ MonoBehaviour:
   Wall: {fileID: 6394745980415230233}
   distanceToWall: 0.61
   speed: 2
-  Character: {fileID: 0}
   timeIdle: 1
   jump: 0
-  jumpForce: 0
+  jumpForce: 20
 --- !u!1 &6176978849569830302
 GameObject:
   m_ObjectHideFlags: 0
