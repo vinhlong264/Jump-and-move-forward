@@ -3,29 +3,37 @@ using UnityEngine;
 
 public class Observer : MonoBehaviour
 {
-    static Dictionary<string,List<IObserver>> observers = new Dictionary<string, List<IObserver>>();
+    static Dictionary<ActionType,List<IObserver>> observers = new Dictionary<ActionType, List<IObserver>>();
 
-    public static void addObserver( string key , IObserver o)
+    public static void addObserver(ActionType type , IObserver o)
     {
-        if (!observers.ContainsKey(key))
+        if (!observers.ContainsKey(type))
         {
-            observers.Add(key, new List<IObserver>());
-            observers[key].Add(o);
+            observers.Add(type, new List<IObserver>());
+            observers[type].Add(o);
         }
     }
 
-    public static void removeObserver( string key ,IObserver o)
+    public static void removeObserver( ActionType type ,IObserver o)
     {
-        if (!observers.ContainsKey(key)) return;
+        if (!observers.ContainsKey(type)) return;
 
-        observers[key].Remove(o);
+        observers[type].Remove(o);
     }
 
-    public static void Notify(string key)
+    public static void Notify(ActionType type)
     {
-        foreach(var o  in observers[key])
+        foreach(var o  in observers[type])
         {
             o.Notify();
         }
     }
+}
+
+
+public enum ActionType
+{
+    Question,
+    Health,
+    Score
 }

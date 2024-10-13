@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="QuestData" , menuName = "Question/QuestionInfor")]
-public class questSO : ScriptableObject
+public class QuestionSO : ScriptableObject
 {
     public string nameQuest;
-    public List<QuestItems> requirmentQuest = new List<QuestItems>();
+    public Question[] informationQuestion;
 }
 
 [System.Serializable]
-public class QuestItems
+public class Question
 {
     public string Description;
     public bool isTrue;

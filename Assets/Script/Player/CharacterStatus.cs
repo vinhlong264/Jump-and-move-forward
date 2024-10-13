@@ -15,7 +15,7 @@ public class CharacterStatus : MonoBehaviour
     #region Harmful effects
     public float airJump { get; private set; } = 0.1f;
     private float currentAirJump;
-    public bool noJump { get; private set; }
+    public bool noJump { get; set; }
     #endregion
 
     private void Start()
