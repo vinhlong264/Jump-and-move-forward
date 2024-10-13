@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Player : Entity, IObserver
+public class Player : Entity
 {
     private Vector3 getDirection;
     [SerializeField] private int jumpCount;
@@ -88,8 +88,8 @@ public class Player : Entity, IObserver
 
     public override void Die()
     {
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("isDeath");
-        rb.bodyType = RigidbodyType2D.Static;
     }
 
     protected override void animatorChange()
@@ -149,11 +149,5 @@ public class Player : Entity, IObserver
         Vector2 dir = getMouse().normalized;
         return (Vector2)transform.position + dir * _t;
     }
-
-    public void Notify()
-    {
-        Debug.Log("Gọi tôi");
-    }
-
     #endregion
 }

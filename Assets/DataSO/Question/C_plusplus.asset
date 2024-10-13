@@ -21,3 +21,7 @@ MonoBehaviour:
   - Description: "int c\xF3 4 byte \u0111\xFAng kh\xF4ng?"
     isTrue: 1
     point: 0
+  - Description: "Thu\u1EADt to\xE1n s\u1EAFp x\u1EBFp n\u1ED5i b\u1ECDt c\xF3 \u0111\u1ED9
+      ph\u1EE9c t\u1EA1p l\xE0 O(n) \u0111\xFAng kh\xF4ng"
+    isTrue: 0
+    point: 0

@@ -1,4 +1,0 @@
-1	Cho a = 0, sau for(int I = 0 ; i < 10; i++) { a +=i} thì a bằng bao nhiêu	35 30 50 45	45
-2	Nếu khai báo 1 biến ngoài hàm main thì được gọi là gì	gobal local	global
-3	int có bao nhiêu byte	4byte 1byte 8byte 5byte	4 byte
-4	Nếu khai báo 1 biến ngoài hàm main thì được gọi là gì	O(n) O(LogN)	O(n)
