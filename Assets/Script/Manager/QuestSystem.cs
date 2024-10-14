@@ -12,7 +12,13 @@ public class QuestSystem : MonoBehaviour , IObserver
     [SerializeField] private Question currentQuestion;
 
     [Header("UI")]
+    [SerializeField] private RectTransform rectTransform;
+    private Vector3 scaleOrigin;
     [SerializeField] private TextMeshProUGUI descriptionText;
+
+    [SerializeField] private TextMeshProUGUI notifyAnswer;
+    [SerializeField] private Animator animText;
+    [SerializeField] private Animator animUIQuestion;
 
     [Header("Game object")]
     [SerializeField] private int indexMap = 0;
@@ -24,11 +30,20 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     [SerializeField] private ActionType actionType;
 
-    private void Start()
+
+    private void OnEnable()
     {
         Observer.addObserver(actionType, this);
+    }
+
+    private void Start()
+    {
         gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
+
+        rectTransform = GetComponent<RectTransform>();
+
+        scaleOrigin = new Vector3(1,1,1);
 
         setQuestion();
     }
@@ -43,6 +58,8 @@ public class QuestSystem : MonoBehaviour , IObserver
         int randomIndex = Random.Range(0, listQuestion.Count);
         currentQuestion = listQuestion[randomIndex];
         descriptionText.text = currentQuestion.Description;
+
+        notifyAnswer.text = "";
     }
 
     public void useSelectTrue()
@@ -50,29 +67,38 @@ public class QuestSystem : MonoBehaviour , IObserver
 
         if (currentQuestion.isTrue)
         {
-            Debug.Log("Correct");
+            notifyAnswer.text = "Correct!!";
         }
         else
         {
-            Debug.Log("Wrong");
+            notifyAnswer.text = "Wrong!!";
         }
-        Invoke("setActive", 1f);
+
+        animText.SetTrigger("transition");
+        Invoke("completeQuestion", 2f);
+
     }
 
     public void useSelectFalse()
     {
         if (!currentQuestion.isTrue)
         {
-            Debug.Log("Correct");
+            notifyAnswer.text = "Correct!!";
         }
         else
         {
-            Debug.Log("Wrong");
+            notifyAnswer.text = "Wrong!!";
         }
-        Invoke("setActive", 1f);
+
+        animText.SetTrigger("transition");
+        Invoke("completeQuestion", 2f);
 
     }
 
+    private void completeQuestion()
+    {
+        animUIQuestion.SetTrigger("UItransition");
+    }
 
     IEnumerator transitionNextQuestion()
     {
@@ -82,8 +108,6 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void setActive()
     {
-        StartCoroutine(transitionNextQuestion());
-        activeMap();
         gameObject.SetActive(false);
     }
 
