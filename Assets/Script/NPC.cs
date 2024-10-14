@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    private ActionType actionType => ActionType.Question;
+    [SerializeField] private ActionType actionType;
     private Transform characterPos => GameManager.Instance.character.transform;
 
     [SerializeField] private float distanceDetected;

@@ -6,22 +6,28 @@ using UnityEngine;
 
 public class QuestSystem : MonoBehaviour , IObserver
 {
+    [Header("Data")]
     [SerializeField] private QuestionSO questionData;
     [SerializeField] private List<Question> listQuestion;
     [SerializeField] private Question currentQuestion;
 
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI descriptionText;
 
-    public GameObject test;
+    [Header("Game object")]
+    [SerializeField] private int indexMap = 0;
+    [SerializeField] private GameObject[] Map;
 
 
-    private ActionType actionType => ActionType.Question;
+
+
+
+    [SerializeField] private ActionType actionType;
 
     private void Start()
     {
-        gameObject.SetActive(false);
-
         Observer.addObserver(actionType, this);
+        gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
 
         setQuestion();
@@ -76,9 +82,15 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void setActive()
     {
-        test.SetActive(true);
         StartCoroutine(transitionNextQuestion());
+        activeMap();
         gameObject.SetActive(false);
+    }
+
+    private void activeMap()
+    {
+        Map[indexMap].SetActive(true);
+        indexMap++;
     }
 
     public void Notify()
