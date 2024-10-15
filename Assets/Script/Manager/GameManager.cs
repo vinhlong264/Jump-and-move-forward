@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance 
-    {
-        get 
-        { 
-            return instance; 
-        } 
-    }
-
+    public static GameManager instance { get; set; }
     public CharacterStatus character;
+
+    public float score { get; set; }
 
     private void Awake()
     {
@@ -25,5 +19,12 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
+    public void addScore()
+    {
+        score += 0.4f;
+    }
+
+
+
 }
 

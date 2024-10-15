@@ -44,6 +44,11 @@ public class Player : Entity
         facingController(getMouse().x);
 
         animatorChange();
+
+        if (isGroundDetected() && currentJumpCount <= 0)
+        {
+            currentJumpCount = jumpCount;
+        }
     }
 
     private void InputCharacter()
@@ -97,7 +102,6 @@ public class Player : Entity
         anim.SetBool("isJump", !isGroundDetected());
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

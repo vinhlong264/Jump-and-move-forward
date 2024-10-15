@@ -22,6 +22,10 @@ MonoBehaviour:
     isTrue: 0
     point: 0
   - Description: "Thu\u1EADt to\xE1n Bubble sort c\xF3 \u0111\u1ED9 ph\u1EE9c t\u1EA1p
-      l\xE0 O(n^2) \u0111\xFAng kh\xF4ng"
+      l\xE0 O(n) \u0111\xFAng kh\xF4ng"
+    isTrue: 0
+    point: 0
+  - Description: "N\u1EBFu truy c\u1EADp \u0111\u1EBFn 1 ph\u1EA7n t\u1EED trong
+      m\u1EA3ng th\xEC \u0111\u1ED9 ph\u1EE9c t\u1EA1p l\xE0 O(1) \u0111\xFAng kh\xF4ng"
     isTrue: 1
     point: 0

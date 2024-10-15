@@ -12,8 +12,6 @@ public class QuestSystem : MonoBehaviour , IObserver
     [SerializeField] private Question currentQuestion;
 
     [Header("UI")]
-    [SerializeField] private RectTransform rectTransform;
-    private Vector3 scaleOrigin;
     [SerializeField] private TextMeshProUGUI descriptionText;
 
     [SerializeField] private TextMeshProUGUI notifyAnswer;
@@ -40,11 +38,6 @@ public class QuestSystem : MonoBehaviour , IObserver
     {
         gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
-
-        rectTransform = GetComponent<RectTransform>();
-
-        scaleOrigin = new Vector3(1,1,1);
-
         setQuestion();
     }
 
@@ -102,12 +95,15 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     IEnumerator transitionNextQuestion()
     {
+        listQuestion.Remove(currentQuestion);
         setQuestion();
         yield return new WaitForSeconds(1);
     }
 
     private void setActive()
     {
+        activeMap();
+        StartCoroutine("transitionNextQuestion");
         gameObject.SetActive(false);
     }
 
