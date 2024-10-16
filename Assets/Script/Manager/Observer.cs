@@ -41,5 +41,5 @@ public enum ActionType
 {
     Question,
     Health,
-    Score
+    LoadScenen
 }

@@ -61,6 +61,7 @@ public class QuestSystem : MonoBehaviour , IObserver
         if (currentQuestion.isTrue)
         {
             notifyAnswer.text = "Correct!!";
+            GameManager.Instance.score += currentQuestion.point;
         }
         else
         {
@@ -77,6 +78,7 @@ public class QuestSystem : MonoBehaviour , IObserver
         if (!currentQuestion.isTrue)
         {
             notifyAnswer.text = "Correct!!";
+            GameManager.Instance.score += currentQuestion.point;
         }
         else
         {
@@ -102,6 +104,7 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void setActive()
     {
+        CharacterStatus.Instance.noJump = false;
         activeMap();
         StartCoroutine("transitionNextQuestion");
         gameObject.SetActive(false);
@@ -116,5 +119,6 @@ public class QuestSystem : MonoBehaviour , IObserver
     public void Notify()
     {
         gameObject.SetActive(true);
+        CharacterStatus.Instance.noJump = true;
     }
 }

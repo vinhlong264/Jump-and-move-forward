@@ -16,7 +16,7 @@ public class MushRoom : Enemy
             CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
             if (character != null)
             {
-                if (character.transform.DotTest(transform, Vector2.down))
+                if (character.transform.DotDirectionTo(transform, Vector2.down))
                 {
                     Die();
                 }

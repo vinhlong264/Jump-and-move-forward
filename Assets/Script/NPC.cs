@@ -3,7 +3,6 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     [SerializeField] private ActionType actionType;
-    private Transform characterPos => GameManager.instance.character.transform;
 
     [SerializeField] private float distanceDetected;
     [SerializeField] private LayerMask mask;

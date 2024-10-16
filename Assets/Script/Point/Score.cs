@@ -8,7 +8,7 @@ public class Score : MonoBehaviour
     {
         if(collision.GetComponent<CharacterStatus>() != null)
         {
-            GameManager.instance.addScore();
+            GameManager.Instance.addScore();
             Destroy(gameObject);
         }
     }

@@ -56,13 +56,15 @@ MonoBehaviour:
     Description: 
     isTrue: 0
     point: 0
-  rectTransform: {fileID: 4629687135622942773}
   descriptionText: {fileID: 7024521264449487866}
   notifyAnswer: {fileID: 593823533580383547}
   animText: {fileID: 8508672818151075259}
   animUIQuestion: {fileID: 2779795811702455439}
   indexMap: 0
-  Map: []
+  Map:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   actionType: 0
 --- !u!95 &2779795811702455439
 Animator:

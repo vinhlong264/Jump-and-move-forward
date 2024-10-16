@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Extension;
 
-public class CharacterStatus : MonoBehaviour
+public class CharacterStatus : Singleton<CharacterStatus>
 {
     private Player player;
-
     private SpriteRenderer sr;
     private float currentGravity = 3f;
     [SerializeField] private GameObject bubble;
@@ -17,6 +17,12 @@ public class CharacterStatus : MonoBehaviour
     private float currentAirJump;
     public bool noJump { get; set; }
     #endregion
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     private void Start()
     {

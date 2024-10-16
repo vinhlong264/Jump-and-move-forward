@@ -1,30 +1,30 @@
+﻿using System.Collections;
 using UnityEngine;
-
-public class GameManager : MonoBehaviour
+using UnityEngine.SceneManagement;
+using Extension;
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager instance { get; set; }
-    public CharacterStatus character;
+    public float score;
+    public Point pointManager;
 
-    public float score { get; set; }
-
-    private void Awake()
+    protected override void Awake()
     {
-        if(instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+        base.Awake();
+        DontDestroyOnLoad(Instance);
     }
     public void addScore()
     {
         score += 0.4f;
     }
 
+    public void resetScore()
+    {
+        score = 0;
+    }
 
-
+    public void LoadScene(string _nameScene, string _sceneLevel)
+    {
+        SceneManager.LoadScene($"{_nameScene} {_sceneLevel}");
+    }
 }
 
