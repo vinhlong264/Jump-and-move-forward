@@ -116,7 +116,7 @@ public class QuestSystem : MonoBehaviour , IObserver
         indexMap++;
     }
 
-    public void Notify()
+    public void Notify(int _value)
     {
         gameObject.SetActive(true);
         CharacterStatus.Instance.noJump = true;

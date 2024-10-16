@@ -25,7 +25,6 @@ public class Player : Entity
 
         currentJumpCount = jumpCount;
         knockBack = new Vector2(5, 15);
-
         InitializeDots();
     }
 
@@ -49,6 +48,8 @@ public class Player : Entity
         {
             currentJumpCount = jumpCount;
         }
+
+        Observer.Notify(ActionType.JumpCount, currentJumpCount);
     }
 
     private void InputCharacter()
@@ -88,7 +89,7 @@ public class Player : Entity
     public void activeJumpingAir()
     {
         jumpCount++;
-        currentJumpCount = jumpCount;
+        currentJumpCount++;
     }
 
     public override void Die()

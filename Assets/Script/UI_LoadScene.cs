@@ -6,12 +6,12 @@ public class UI_LoadScene : MonoBehaviour,IObserver
 
     private void Awake()
     {
-        Observer.addObserver(ActionType.LoadScenen,this);
+        Observer.addObserver(ActionType.LoadScene,this);
     }
 
     private void OnDestroy()
     {
-        Observer.removeObserver(ActionType.LoadScenen,this);
+        Observer.removeObserver(ActionType.LoadScene,this);
     }
 
     private void Start()
@@ -19,7 +19,7 @@ public class UI_LoadScene : MonoBehaviour,IObserver
         anim = GetComponent<Animator>();
     }
 
-    public void Notify()
+    public void Notify(int _value)
     {
         anim.SetTrigger("Load");
     }

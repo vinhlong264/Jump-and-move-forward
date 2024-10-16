@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using Extension;
 using UnityEngine.SceneManagement;
-using Extension;
 public class GameManager : Singleton<GameManager>
 {
     public float score;

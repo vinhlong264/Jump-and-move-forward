@@ -13,7 +13,7 @@ public class NPC : MonoBehaviour
 
         if(cast.collider != null)
         {
-            Observer.Notify(actionType);
+            Observer.Notify(actionType,0);
         }
     }
 

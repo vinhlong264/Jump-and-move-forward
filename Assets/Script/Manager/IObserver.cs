@@ -1,4 +1,4 @@
 public interface IObserver
 {
-    void Notify();
+    void Notify(int _value);
 }

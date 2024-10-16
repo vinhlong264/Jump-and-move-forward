@@ -13,34 +13,35 @@ namespace Extension
 
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour // Singleton Improve
     {
-        private static T instace;
+        private static T _instace;
         public static T Instance
         {
             get
             {
-                if(instace == null)
+                if(_instace == null)
                 {
                     if(FindObjectOfType<T>() != null) // Nếu tìm thấy gameObject có Type T sẽ gán instance = gameObject được tìm thấy
                     {
-                        instace = FindObjectOfType<T>();
+                        _instace = FindObjectOfType<T>();
                     }
                     else
                     {
                         new GameObject().AddComponent<T>(); // nếu không tìm thấy thì khởi tạo gameObject và tự động thêm class T vào gameObject
                     }
                 }
-                return instace;
+                return _instace;
             }
         }
 
         protected virtual void Awake()
         {
-            if(instace != null && instace.gameObject.GetInstanceID() != this.gameObject.GetInstanceID())
+            if(_instace != null && _instace.GetInstanceID() != this.GetInstanceID())
             {
-                Debug.LogError("Singleton already exist: " + instace.gameObject.name);
+                //Debug.LogError("Singleton already exist: " + _instace.gameObject.name);
                 DestroyImmediate(this.gameObject);
             }
-            instace = this.GetComponent<T>();
+            else
+                _instace = this.GetComponent<T>();
         }
     }
 }

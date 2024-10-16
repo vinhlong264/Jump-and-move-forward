@@ -9,7 +9,7 @@ public class CharacterStatus : Singleton<CharacterStatus>
     private float currentGravity = 3f;
     [SerializeField] private GameObject bubble;
 
-    [SerializeField] private int maxHealth;
+    [SerializeField] private int maxHealth = 3;
     private int currentHealth;
 
     #region Harmful effects
@@ -22,24 +22,24 @@ public class CharacterStatus : Singleton<CharacterStatus>
     protected override void Awake()
     {
         base.Awake();
+
+        player = GetComponent<Player>();
+        currentAirJump = airJump;
+        currentHealth = maxHealth;
     }
 
     private void Start()
     {
-        player = GetComponent<Player>();
         sr = GetComponent<SpriteRenderer>();
-
-
-        currentAirJump = airJump;
-        currentHealth = maxHealth;
-
         bubble.SetActive(false);
+        Observer.Notify(ActionType.Health, currentHealth);
     }
 
     public void takeDame()
     {
         player.isHit();
         currentHealth--;
+        Observer.Notify(ActionType.Health , currentHealth);
         if(currentHealth <= 0)
         {
             Die();
@@ -50,7 +50,8 @@ public class CharacterStatus : Singleton<CharacterStatus>
     public void recoverHealth()
     {
         currentHealth++;
-        if(currentHealth >= maxHealth)
+        Observer.Notify(ActionType.Health, currentHealth);
+        if (currentHealth >= maxHealth)
         {
             currentHealth = maxHealth;
         }
@@ -61,7 +62,10 @@ public class CharacterStatus : Singleton<CharacterStatus>
         player.setUpPlayer(true , currentGravity);
         StartCoroutine(colorChange());
     }
-    public void jumpAir() => player.activeJumpingAir();
+    public void jumpAir()
+    {
+        player.activeJumpingAir();
+    }
 
     private IEnumerator stopJumpIn(float _second) // hiệu ứng gây hại: Xóa khả năng nhảy
     {
@@ -99,5 +103,10 @@ public class CharacterStatus : Singleton<CharacterStatus>
         player.setUpPlayer(false, currentGravity);
         bubble.SetActive(false);
         Debug.Log("Trả trọng lực");
+    }
+
+    public int getCurrentHealth()
+    {
+        return currentHealth;
     }
 }

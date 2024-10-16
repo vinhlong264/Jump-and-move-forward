@@ -22,7 +22,7 @@ public class Observer : MonoBehaviour
         observers[type].Remove(o);
     }
 
-    public static void Notify(ActionType type) // Thông báo sự kiện
+    public static void Notify(ActionType type , int value) // Thông báo sự kiện
     {
         if (!observers.ContainsKey(type)){
             Debug.Log("Không tìm thấy key");
@@ -31,7 +31,7 @@ public class Observer : MonoBehaviour
 
         foreach(var o  in observers[type])
         {
-            o.Notify();
+            o.Notify(value);
         }
     }
 }
@@ -41,5 +41,6 @@ public enum ActionType
 {
     Question,
     Health,
-    LoadScenen
+    JumpCount,
+    LoadScene
 }
