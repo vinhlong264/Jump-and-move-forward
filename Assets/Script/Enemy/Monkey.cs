@@ -18,9 +18,9 @@ public class Monkey : Enemy
     {
         timeIdle -= Time.deltaTime;
 
-        State();
-
         ColisionCheck();
+
+        State();
 
         animationChange();
     }
@@ -41,7 +41,7 @@ public class Monkey : Enemy
         if (!isGroundDetected() && !jump)
         {
             jump = true;
-            rb.velocity = new Vector2(rb.velocity.x , jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
@@ -55,7 +55,6 @@ public class Monkey : Enemy
 
         if (isGroundDetected())
         {
-            
             jump = false;
         }
     }
@@ -69,11 +68,11 @@ public class Monkey : Enemy
 
 
     protected override void OnCollisionEnter2D(Collision2D collision)
-    {     
-        if(collision.gameObject.GetComponent<CharacterStatus>() != null)
-        {           
+    {
+        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
+        {
             CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
-            if(character != null)
+            if (character != null)
             {
                 if (character.transform.DotDirectionTo(transform, Vector2.down))
                 {

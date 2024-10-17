@@ -49,6 +49,8 @@ public class Player : Entity
             currentJumpCount = jumpCount;
         }
 
+        Debug.Log(isGroundDetected());
+
         Observer.Notify(ActionType.JumpCount, currentJumpCount);
     }
 
