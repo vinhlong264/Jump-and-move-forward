@@ -48,7 +48,7 @@ public class Entity : MonoBehaviour
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
     }
-    protected bool isGroundDetected() => Physics2D.Raycast(Ground.position, Vector2.down, distanceToGround, mask);
+    protected bool isGroundDetected() => Physics2D.OverlapCircle(Ground.position, distanceToGround, mask);
 
     public virtual void Die()
     {
@@ -70,6 +70,6 @@ public class Entity : MonoBehaviour
     {
         if (Ground == null) return;
 
-        Gizmos.DrawLine(Ground.position, new Vector3(Ground.position.x, Ground.position.y - distanceToGround, 0));
+        Gizmos.DrawWireSphere(Ground.position, distanceToGround);
     }
 }

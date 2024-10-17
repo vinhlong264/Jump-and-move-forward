@@ -9,7 +9,7 @@ public class FinishBase : MonoBehaviour
     protected SpriteRenderer sr;
     [SerializeField] protected ItemSO ItemSO;
 
-    protected void setUp(ItemSO _itemSO)
+    protected virtual void setUp(ItemSO _itemSO)
     {
         sr.sprite = _itemSO.sr;
     }

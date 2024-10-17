@@ -6,6 +6,7 @@ public class Player : Entity
     private Vector3 getDirection;
     [SerializeField] private int jumpCount;
     [SerializeField] private int currentJumpCount;
+    [SerializeField] private float jumpForce;
 
     [Header("Anim Dot")]
     [SerializeField] private GameObject dotPrefabs;
@@ -48,9 +49,6 @@ public class Player : Entity
         {
             currentJumpCount = jumpCount;
         }
-
-        Debug.Log(isGroundDetected());
-
         Observer.Notify(ActionType.JumpCount, currentJumpCount);
     }
 
@@ -79,12 +77,12 @@ public class Player : Entity
 
         if (isOppositeDirection)
         {
-            rb.AddForce(-getDirection.normalized * 20f, ForceMode2D.Impulse);
+            rb.AddForce(-getDirection.normalized * jumpForce, ForceMode2D.Impulse);
             isOppositeDirection = false;
         }
         else
         {
-            rb.AddForce(getDirection.normalized * 20f, ForceMode2D.Impulse);
+            rb.AddForce(getDirection.normalized * jumpForce, ForceMode2D.Impulse);
         }
     }
 
