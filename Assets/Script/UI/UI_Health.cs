@@ -6,12 +6,12 @@ public class UI_Health : MonoBehaviour, IObserver
     [SerializeField] private TextMeshProUGUI healthText;
     private void OnEnable()
     {
-        Observer.addObserver(ActionType.Health, this);
+        Observer.Instance.addObserver(ActionType.Health, this);
     }
 
     private void OnDestroy()
     {
-        Observer.removeObserver(ActionType.Health, this);
+        Observer.Instance.removeObserver(ActionType.Health, this);
     }
     private void Start()
     {

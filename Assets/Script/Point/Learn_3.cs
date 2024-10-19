@@ -12,6 +12,7 @@ public class Learn_3 : FinishBase
         if(collision.GetComponent<CharacterStatus>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
+            GameManager.Instance.saveScore();
             Debug.Log("Hoàn thành khóa học");
         }
     }
@@ -19,6 +20,5 @@ public class Learn_3 : FinishBase
     protected override void savePoint(Point _point)
     {
         _point.point_3 = GameManager.Instance.score;
-        GameManager.Instance.resetScore();
     }
 }

@@ -27,12 +27,12 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void OnEnable()
     {
-        Observer.addObserver(actionType, this);
+        Observer.Instance.addObserver(actionType, this);
     }
 
     private void OnDestroy()
     {
-        Observer.removeObserver(actionType, this);
+        Observer.Instance.removeObserver(actionType, this);
     }
 
     private void Start()

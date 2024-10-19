@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Extension;
-public class Observer
+public class Observer:Singleton<Observer>
 {
-    public static Dictionary<ActionType,List<IObserver>> observers = new Dictionary<ActionType, List<IObserver>>();
-    public static void addObserver(ActionType type , IObserver o)
+    public Dictionary<ActionType,List<IObserver>> observers = new Dictionary<ActionType, List<IObserver>>();
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    public void addObserver(ActionType type , IObserver o)
     {
         if (observers.ContainsKey(type)) return;
 
@@ -17,24 +21,17 @@ public class Observer
         }
     }
 
-    public static void removeObserver(ActionType type ,IObserver o)
+    public void removeObserver(ActionType type ,IObserver o)
     {
-        if (!observers.ContainsKey(type))
-        {
-            Debug.Log("Key không tồn tại");
-            return;
-        }
+        if (!observers.ContainsKey(type)) return;
 
         observers[type].Remove(o);
         Debug.Log("Hủy sự kiện");
     }
 
-    public static void Notify(ActionType type , int value) // Thông báo sự kiện
+    public void Notify(ActionType type , int value) // Thông báo sự kiện
     {
-        if (!observers.ContainsKey(type)){
-            Debug.Log("Không tìm thấy key");
-            return;
-        }
+        if (!observers.ContainsKey(type)) return;
         
         foreach(var o  in observers[type])
         {

@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class Login : MonoBehaviour
         if (isValidUser(user.username, user.password))
         {
             Debug.Log("Start");
+            StartCoroutine(loadScene());
         }
         else
         {
@@ -58,6 +61,13 @@ public class Login : MonoBehaviour
             }
         }
         return false;
+    }
+
+    IEnumerator loadScene()
+    {
+        Observer.Instance.Notify(ActionType.LoadScene ,0);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Menu");
     }
 
 }

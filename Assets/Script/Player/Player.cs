@@ -49,7 +49,7 @@ public class Player : Entity
         {
             currentJumpCount = jumpCount;
         }
-        Observer.Notify(ActionType.JumpCount, currentJumpCount);
+        Observer.Instance.Notify(ActionType.JumpCount, currentJumpCount);
     }
 
     private void InputCharacter()

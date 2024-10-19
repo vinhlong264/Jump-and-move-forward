@@ -7,12 +7,12 @@ public class UI_JumpCount : MonoBehaviour, IObserver
 
     private void OnEnable()
     {
-        Observer.addObserver(ActionType.JumpCount, this);
+        Observer.Instance.addObserver(ActionType.JumpCount, this);
     }
 
     private void OnDestroy()
     {
-        Observer.removeObserver(ActionType.JumpCount, this);
+        Observer.Instance.removeObserver(ActionType.JumpCount, this);
     }
 
     private void Start()

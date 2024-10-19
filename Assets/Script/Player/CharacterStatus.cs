@@ -32,14 +32,14 @@ public class CharacterStatus : Singleton<CharacterStatus>
     {
         sr = GetComponent<SpriteRenderer>();
         bubble.SetActive(false);
-        Observer.Notify(ActionType.Health, currentHealth);
+        Observer.Instance.Notify(ActionType.Health, currentHealth);
     }
 
     public void takeDame()
     {
         player.isHit();
         currentHealth--;
-        Observer.Notify(ActionType.Health , currentHealth);
+        Observer.Instance.Notify(ActionType.Health , currentHealth);
         if(currentHealth <= 0)
         {
             Die();
@@ -50,7 +50,7 @@ public class CharacterStatus : Singleton<CharacterStatus>
     public void recoverHealth()
     {
         currentHealth++;
-        Observer.Notify(ActionType.Health, currentHealth);
+        Observer.Instance.Notify(ActionType.Health, currentHealth);
         if (currentHealth >= maxHealth)
         {
             currentHealth = maxHealth;
