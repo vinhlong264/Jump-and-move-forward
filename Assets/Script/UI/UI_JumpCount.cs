@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class UI_JumpCount : MonoBehaviour, IObserver
 {
     private TextMeshProUGUI jumpCountText;
 
-    private void Awake()
+    private void OnEnable()
     {
         Observer.addObserver(ActionType.JumpCount, this);
     }
@@ -20,6 +18,7 @@ public class UI_JumpCount : MonoBehaviour, IObserver
     private void Start()
     {
         jumpCountText = GetComponentInChildren<TextMeshProUGUI>();
+        Notify(0);
     }
     public void Notify(int _value)
     {

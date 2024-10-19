@@ -19,11 +19,11 @@ public class Player : Entity
     private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
 
     private CharacterStatus characterStatus;
+
     protected override void Start()
     {
         base.Start();
         characterStatus = GetComponent<CharacterStatus>();
-
         currentJumpCount = jumpCount;
         knockBack = new Vector2(5, 15);
         InitializeDots();

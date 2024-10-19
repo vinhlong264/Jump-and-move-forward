@@ -26,7 +26,7 @@ namespace Extension
                     }
                     else
                     {
-                        new GameObject().AddComponent<T>(); // nếu không tìm thấy thì khởi tạo gameObject và tự động thêm class T vào gameObject
+                        new GameObject().AddComponent<T>().name = $"{typeof(T)}"; // nếu không tìm thấy thì khởi tạo gameObject và tự động thêm class T vào gameObject
                     }
                 }
                 return _instace;
@@ -37,7 +37,7 @@ namespace Extension
         {
             if(_instace != null && _instace.GetInstanceID() != this.GetInstanceID())
             {
-                //Debug.LogError("Singleton already exist: " + _instace.gameObject.name);
+                Debug.LogError("Singleton already exist: " + _instace.gameObject.name);
                 DestroyImmediate(this.gameObject);
             }
             else

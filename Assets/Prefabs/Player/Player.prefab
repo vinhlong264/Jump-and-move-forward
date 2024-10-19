@@ -309,6 +309,7 @@ MonoBehaviour:
     m_Bits: 8
   jumpCount: 2
   currentJumpCount: 0
+  jumpForce: 0
   dotPrefabs: {fileID: 3177442695497469245, guid: 892cdb07ced0fd7418a572ba588a2050, type: 3}
   amountDot: 4
   betweenSpaceDot: 2

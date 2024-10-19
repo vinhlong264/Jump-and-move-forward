@@ -22,10 +22,6 @@ public class QuestSystem : MonoBehaviour , IObserver
     [SerializeField] private int indexMap = 0;
     [SerializeField] private GameObject[] Map;
 
-
-
-
-
     [SerializeField] private ActionType actionType;
 
 
@@ -34,17 +30,17 @@ public class QuestSystem : MonoBehaviour , IObserver
         Observer.addObserver(actionType, this);
     }
 
+    private void OnDestroy()
+    {
+        Observer.removeObserver(actionType, this);
+    }
+
     private void Start()
     {
         gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
         setQuestion();
-    }
-
-    private void OnDestroy()
-    {
-        Observer.removeObserver(actionType, this);
-    }
+    }    
 
     private void setQuestion()
     {

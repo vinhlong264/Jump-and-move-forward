@@ -4,14 +4,14 @@ public class UI_LoadScene : MonoBehaviour,IObserver
 {
     private Animator anim;
 
-    private void Awake()
+    private void OnEnable()
     {
-        Observer.addObserver(ActionType.LoadScene,this);
+        Observer.addObserver(ActionType.LoadScene, this);
     }
 
     private void OnDestroy()
     {
-        Observer.removeObserver(ActionType.LoadScene,this);
+        Observer.removeObserver(ActionType.LoadScene, this);
     }
 
     private void Start()
