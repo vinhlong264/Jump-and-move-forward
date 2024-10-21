@@ -50,6 +50,8 @@ public class Register : MonoBehaviour
             {
                 sw.WriteLine($"{userData.username} {userData.password}");
             }
+
+            Debug.Log("Đăng kí thành công");
         }
     }
 

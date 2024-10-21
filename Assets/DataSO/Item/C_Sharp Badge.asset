@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bc42bdd66a56140ad04642a8b0463a, type: 3}
   m_Name: C_Sharp Badge
   m_EditorClassIdentifier: 
-  sr: {fileID: 21300000, guid: 929c0a2745ae1c14c9417e551f731fe4, type: 3}
+  sr: {fileID: 21300000, guid: 4867e4fa6c53b2f43951d5f0976e6416, type: 3}

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class GameManager : Singleton<GameManager>
+public class GameManager : Singleton<GameManager>, ISaveManager
 {
     public float score;
     public Point pointManager;
     private string filepath;
+    public float ScoreFinal;
 
+
+    [Header("Save game")]
+    [SerializeField] private int levelGame;
     public List<ItemSO> listItems = new List<ItemSO>();
+
 
     protected override void Awake()
     {
@@ -37,11 +42,18 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene($"{_nameScene} {_sceneLevel}");
     }
 
+    public int checkLevelGame() => levelGame;
+
+    public void winLevel()
+    {
+        levelGame++;
+    }
+
     public void saveScore()
     {
         if (File.Exists(filepath))
         {
-            float ScoreFinal = pointManager.sumPoint(pointManager.point_1,pointManager.point_2,pointManager.point_3);
+            ScoreFinal = pointManager.sumPoint(pointManager.point_1,pointManager.point_2,pointManager.point_3);
 
             using(StreamWriter writer = new StreamWriter(filepath,true))
             {
@@ -55,6 +67,20 @@ public class GameManager : Singleton<GameManager>
     public void addItem(ItemSO _item)
     {
         listItems.Add(_item);
+    }
+
+    public void LoadGame(GameData _data)
+    {
+        _data.levelGame = this.levelGame;
+    }
+
+    public void SaveGame(ref GameData _data)
+    {
+        this.levelGame = _data.levelGame;
+        for(int i = 0; i < this.listItems.Count; i++)
+        {
+            this.listItems[i] = _data.item;
+        }
     }
 }
 

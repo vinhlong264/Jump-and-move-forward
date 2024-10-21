@@ -309,7 +309,7 @@ MonoBehaviour:
     m_Bits: 8
   jumpCount: 2
   currentJumpCount: 0
-  jumpForce: 0
+  jumpForce: 20
   dotPrefabs: {fileID: 3177442695497469245, guid: 892cdb07ced0fd7418a572ba588a2050, type: 3}
   amountDot: 4
   betweenSpaceDot: 2
@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubble: {fileID: 3076634172416059690}
   maxHealth: 3
+  UI_YouLose: {fileID: 0}
 --- !u!1 &9193059409588867072
 GameObject:
   m_ObjectHideFlags: 0

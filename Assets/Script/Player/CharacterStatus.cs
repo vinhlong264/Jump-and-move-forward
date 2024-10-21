@@ -18,6 +18,8 @@ public class CharacterStatus : Singleton<CharacterStatus>
     public bool noJump { get; set; }
     #endregion
 
+    [SerializeField] GameObject UI_YouLose;
+
 
     protected override void Awake()
     {
@@ -45,16 +47,20 @@ public class CharacterStatus : Singleton<CharacterStatus>
             Die();
         }
     }
-    public void Die() => player.Die();
+    public void Die()
+    {
+        player.Die();
+        UI_YouLose.SetActive(true);
+    }
 
     public void recoverHealth()
     {
         currentHealth++;
-        Observer.Instance.Notify(ActionType.Health, currentHealth);
-        if (currentHealth >= maxHealth)
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
+        Observer.Instance.Notify(ActionType.Health, currentHealth);
     }
 
     public void reverseDirection()

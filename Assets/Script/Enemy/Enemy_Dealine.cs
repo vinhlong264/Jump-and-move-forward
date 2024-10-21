@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_Dealine : Enemy
@@ -10,6 +11,12 @@ public class Enemy_Dealine : Enemy
 
     private void FixedUpdate()
     {
+        StartCoroutine(WaitRun());
+    }
+
+    IEnumerator WaitRun()
+    {
+        yield return new WaitForSeconds(2);
         rb.velocity = Vector2.up * speed;
     }
 

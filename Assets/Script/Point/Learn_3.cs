@@ -2,6 +2,7 @@
 
 public class Learn_3 : FinishBase
 {
+    [SerializeField] private GameObject UI_YouWIn;
     protected override void Start()
     {
         base.Start();
@@ -14,6 +15,13 @@ public class Learn_3 : FinishBase
             savePoint(GameManager.Instance.pointManager);
             GameManager.Instance.saveScore();
             Debug.Log("Hoàn thành khóa học");
+            
+            if(UI_YouWIn != null)
+            {
+                UI_YouWIn.SetActive(true);
+            }
+
+            CharacterStatus.Instance.noJump = true;
         }
     }
 

@@ -6,9 +6,16 @@ public class ScoreController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rankTxt;
     [SerializeField] private TextMeshProUGUI scoreTxt;
 
-    public void setScore(int rank, float score)
+    public void setScore(ScoreData scoreData)
     {
-        rankTxt.text = rank.ToString();
-        scoreTxt.text = score.ToString("f2");
+        rankTxt.text = scoreData.rank.ToString();
+        scoreTxt.text = scoreData.score.ToString("f2");
     }
+}
+
+[System.Serializable]
+public class ScoreData
+{
+    public int rank;
+    public float score;
 }

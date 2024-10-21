@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UI_Manager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] listUI;
-    void Start()
+    [SerializeField] protected GameObject[] listUI;
+    protected virtual void Start()
     {
+        if (listUI.Length <= 0) return;
+
         isActiveGameObj(listUI[0]);
     }
 
