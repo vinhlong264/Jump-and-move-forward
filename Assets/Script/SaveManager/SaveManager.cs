@@ -1,15 +1,14 @@
 ﻿using Extension;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
-public class SaveManager : Singleton<SaveManager>
+public class SaveManager : Singleton<SaveManager> 
 {
     private GameData gameData;
-    private List<ISaveManager> saveManagers;
-    private FileDataHander dataHander;
-    [SerializeField] private string fileName;
+    private List<ISaveManager> saveManagers; // List các Data cần lưu
+    private FileDataHander dataHander; // lưu trữ vào file
+    [SerializeField] private string fileName; // tên file
     protected override void Awake()
     {
         base.Awake();
@@ -17,7 +16,7 @@ public class SaveManager : Singleton<SaveManager>
 
     private void Start()
     {
-        dataHander= new FileDataHander(Application.persistentDataPath,fileName);
+        dataHander = new FileDataHander(Application.persistentDataPath, fileName);// Constructor gồm Directory và file name
 
         saveManagers = FindAllSaveManager();
 

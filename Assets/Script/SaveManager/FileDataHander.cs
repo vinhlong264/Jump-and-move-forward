@@ -6,15 +6,15 @@ public class FileDataHander
     private string dataDirPath;
     private string dataFileName;
 
-    public FileDataHander(string _dataDirPath, string _dataFileName)
+    public FileDataHander(string _dataDirPath, string _dataFileName) // Constructor
     {
         this.dataDirPath = _dataDirPath;
         this.dataFileName = _dataFileName;
     }
 
-    public void SaveGame(GameData _gameData)
+    public void SaveGame(GameData _gameData) // Save game
     {
-        string fullPath = Path.Combine(dataDirPath,dataFileName);
+        string fullPath = Path.Combine(dataDirPath,dataFileName); // Lấy ra path gồm đường dẫn và file name thông qua Path.Combine()
 
         try
         {
@@ -22,7 +22,6 @@ public class FileDataHander
             string dataToStore = JsonUtility.ToJson(_gameData, true);
             using (FileStream fs = new FileStream(fullPath, FileMode.Create))
             {
-                Debug.Log("Tạo file thành công");
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     sw.Write(dataToStore);
@@ -41,14 +40,14 @@ public class FileDataHander
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
 
-        GameData loadData = null;
+        GameData loadData = null; // tạo 1 GameData rỗng
 
         try
         {
-            if (File.Exists(fullPath))
+            if (File.Exists(fullPath))// kiểm tra xem file có tồn tại không
             {
-                string dataToLoad = "";
-                using (FileStream fs = new FileStream(fullPath, FileMode.Open))
+                string dataToLoad = ""; // lưu trữ dữ liệu vào biến này
+                using (FileStream fs = new FileStream(fullPath, FileMode.Open)) // đọc tất cả dữ liệu trong file
                 {
                     using (StreamReader sr = new StreamReader(fs))
                     {
@@ -56,7 +55,7 @@ public class FileDataHander
                     }
                 }
 
-                loadData = JsonUtility.FromJson<GameData>(dataToLoad);
+                loadData = JsonUtility.FromJson<GameData>(dataToLoad); // convert dữ liệu thành GameData
 
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Extension;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>, ISaveManager
@@ -14,6 +15,11 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     [Header("Save game")]
     [SerializeField] private int levelGame;
     public List<ItemSO> listItems = new List<ItemSO>();
+
+
+
+    [Header("DataBase")]
+    public List<ItemSO> loadItemDatabase;
 
 
     protected override void Awake()
@@ -53,9 +59,9 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     {
         if (File.Exists(filepath))
         {
-            ScoreFinal = pointManager.sumPoint(pointManager.point_1,pointManager.point_2,pointManager.point_3);
+            ScoreFinal = pointManager.sumPoint(pointManager.point_1, pointManager.point_2, pointManager.point_3);
 
-            using(StreamWriter writer = new StreamWriter(filepath,true))
+            using (StreamWriter writer = new StreamWriter(filepath, true))
             {
                 writer.Write(ScoreFinal);
             }
@@ -72,15 +78,46 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void LoadGame(GameData _data)
     {
         _data.levelGame = this.levelGame;
+
+        foreach(var item in _data.badgeList)
+        {
+            foreach(var i in GetItemDataBase())
+            {
+                if(i != null && i.itemID == item)
+                {
+                    listItems.Add(i);
+                }
+            }
+        }
+
     }
 
     public void SaveGame(ref GameData _data)
     {
         this.levelGame = _data.levelGame;
-        for(int i = 0; i < this.listItems.Count; i++)
+
+        _data.badgeList.Clear();
+
+        foreach (var item in listItems)
         {
-            this.listItems[i] = _data.item;
+            _data.badgeList.Add(item.itemID);
         }
+
+    }
+
+
+    private List<ItemSO> GetItemDataBase()
+    {
+        List<ItemSO> itemDataBase = new List<ItemSO>();
+        string[] assetName = AssetDatabase.FindAssets("", new[] { "Assets/DataSO/item" });
+        foreach (string SOname in assetName)
+        {
+            var SOpath = AssetDatabase.GUIDToAssetPath(SOname);
+            var itemData = AssetDatabase.LoadAssetAtPath<ItemSO>(SOpath);
+            itemDataBase.Add(itemData);
+        }
+
+        return itemDataBase;
     }
 }
 

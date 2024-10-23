@@ -7,6 +7,7 @@ public class Player : Entity
     [SerializeField] private int jumpCount;
     [SerializeField] private int currentJumpCount;
     [SerializeField] private float jumpForce;
+    [SerializeField] private GameObject effectPrefabs;
 
     [Header("Anim Dot")]
     [SerializeField] private GameObject dotPrefabs;
@@ -66,6 +67,7 @@ public class Player : Entity
 
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
+            //AudioManager.Instance.PlaySound(SoundType.JUMP,1);
             Jump();
             currentJumpCount--;
             dotsActive(false);
@@ -77,13 +79,29 @@ public class Player : Entity
 
         if (isOppositeDirection)
         {
-            rb.AddForce(-getDirection.normalized * jumpForce, ForceMode2D.Impulse);
+            //rb.AddForce(-getDirection.normalized * jumpForce, ForceMode2D.Impulse);
+            StartCoroutine(JumpTest(-getMouse().normalized));
             isOppositeDirection = false;
         }
         else
         {
-            rb.AddForce(getDirection.normalized * jumpForce, ForceMode2D.Impulse);
+            //rb.AddForce(getDirection.normalized * jumpForce, ForceMode2D.Impulse);
+            StartCoroutine(JumpTest(getMouse().normalized));
         }
+    }
+
+
+    IEnumerator JumpTest(Vector2 dir)
+    {
+        rb.velocity = new Vector2(dir.x, dir.y * jumpForce * 0.9f);
+        yield return new WaitForSeconds(0.3f);
+
+        if (!isGroundDetected())
+        {
+            GameObject effectObj = Instantiate(effectPrefabs, Ground.position, Quaternion.identity);
+        }
+
+        rb.AddForce(dir * jumpForce, ForceMode2D.Impulse);
     }
 
     public void activeJumpingAir()
