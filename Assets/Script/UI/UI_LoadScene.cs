@@ -6,12 +6,12 @@ public class UI_LoadScene : MonoBehaviour,IObserver
 
     private void OnEnable()
     {
-        Observer.Instance.addObserver(ActionType.LoadScene, this);
+        Observer.Instance.addObserver(ActionType.LoadScene, Notify);
     }
 
     private void OnDestroy()
     {
-        Observer.Instance.removeObserver(ActionType.LoadScene, this);
+        Observer.Instance.removeObserver(ActionType.LoadScene, Notify);
     }
 
     private void Start()

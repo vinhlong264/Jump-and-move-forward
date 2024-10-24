@@ -1,41 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using Extension;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using Extension;
-public class Observer:Singleton<Observer>
+public class Observer : Singleton<Observer>
 {
-    public Dictionary<ActionType,List<IObserver>> observers = new Dictionary<ActionType, List<IObserver>>();
+    public Dictionary<ActionType, List<Action<int>>> observers = new Dictionary<ActionType, List<Action<int>>>();
     protected override void Awake()
     {
         base.Awake();
     }
-    public void addObserver(ActionType type , IObserver o)
+
+    private void Start()
     {
-        if (observers.ContainsKey(type)) return;
-
-
-        if (!observers.ContainsKey(type))
+        Debug.Log(observers.Count);
+    }
+    public void addObserver(ActionType key, Action<int> callBack) // đăng kí sự kiện
+    {
+        if (!observers.ContainsKey(key))
         {
             Debug.Log("Đăng kí sự kiện");
-            observers.Add(type, new List<IObserver>());
-            observers[type].Add(o);
+            observers.Add(key, new List<Action<int>>());
         }
+
+        observers[key].Add(callBack);
     }
 
-    public void removeObserver(ActionType type ,IObserver o)
+    public void removeObserver(ActionType type, Action<int> callBack) // Hủy sự kiện
     {
         if (!observers.ContainsKey(type)) return;
 
-        observers[type].Remove(o);
+        observers[type].Remove(callBack);
         Debug.Log("Hủy sự kiện");
     }
 
-    public void Notify(ActionType type , int value) // Thông báo sự kiện
+    public void Notify(ActionType key, int value) // Thông báo sự kiện
     {
-        if (!observers.ContainsKey(type)) return;
-        
-        foreach(var o  in observers[type])
+        if (!observers.ContainsKey(key)) return;
+
+        foreach (var callBack in observers[key])
         {
-            o.Notify(value);
+            try
+            {
+                callBack?.Invoke(value);
+            }
+            catch (Exception e)
+            {
+                Debug.LogErrorFormat($"Notify action on key {key} error: {e.ToString()}");
+            }
         }
     }
 }

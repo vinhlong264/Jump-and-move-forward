@@ -326,6 +326,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 0
+  isFacingDirection: 1
+  isFacingRight: 1
   Wall: {fileID: 0}
   distanceToWall: 0
   speed: 3

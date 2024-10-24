@@ -4,12 +4,12 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class QuestSystem : MonoBehaviour , IObserver
+public class QuestSystem : MonoBehaviour
 {
     [Header("Data")]
-    [SerializeField] private QuestionSO questionData;
-    [SerializeField] private List<Question> listQuestion;
-    [SerializeField] private Question currentQuestion;
+    [SerializeField] private QuestionSO questionData; // Data
+    [SerializeField] private List<Question> listQuestion; // Ds chứa câu hỏi
+    [SerializeField] private Question currentQuestion; // Câu hỏi
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI descriptionText;
@@ -18,7 +18,7 @@ public class QuestSystem : MonoBehaviour , IObserver
     [SerializeField] private Animator animText;
     [SerializeField] private Animator animUIQuestion;
 
-    [Header("Game object")]
+    [Header("Gameobject")]
     [SerializeField] private int indexMap = 0;
     [SerializeField] private GameObject[] Map;
 
@@ -27,12 +27,12 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void OnEnable()
     {
-        Observer.Instance.addObserver(actionType, this);
+        Observer.Instance.addObserver(actionType, Notify);
     }
 
     private void OnDestroy()
     {
-        Observer.Instance.removeObserver(actionType, this);
+        Observer.Instance.removeObserver(actionType, Notify);
     }
 
     private void Start()
@@ -44,7 +44,7 @@ public class QuestSystem : MonoBehaviour , IObserver
 
     private void setQuestion()
     {
-        int randomIndex = Random.Range(0, listQuestion.Count);
+        int randomIndex = Random.Range(0, listQuestion.Count); // Đảo câu hỏi 1 cách ngẫu nhiên
         currentQuestion = listQuestion[randomIndex];
         descriptionText.text = currentQuestion.Description;
 
@@ -112,7 +112,7 @@ public class QuestSystem : MonoBehaviour , IObserver
         indexMap++;
     }
 
-    public void Notify(int _value)
+    public void Notify(int value)
     {
         gameObject.SetActive(true);
         CharacterStatus.Instance.noJump = true;

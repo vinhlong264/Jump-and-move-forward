@@ -41,8 +41,8 @@ public class CharacterStatus : Singleton<CharacterStatus>
     {
         player.isHit();
         currentHealth--;
-        Observer.Instance.Notify(ActionType.Health , currentHealth);
-        if(currentHealth <= 0)
+        Observer.Instance.Notify(ActionType.Health, currentHealth);
+        if (currentHealth <= 0)
         {
             Die();
         }

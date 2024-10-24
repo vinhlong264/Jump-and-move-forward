@@ -65,7 +65,7 @@ public class Login : MonoBehaviour
 
     IEnumerator loadScene()
     {
-        Observer.Instance.Notify(ActionType.LoadScene ,0);
+        Observer.Instance.Notify(ActionType.LoadScene, 0);
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Menu");
     }

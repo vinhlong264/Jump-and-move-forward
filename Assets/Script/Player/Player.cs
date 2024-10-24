@@ -25,6 +25,7 @@ public class Player : Entity
     {
         base.Start();
         characterStatus = GetComponent<CharacterStatus>();
+
         currentJumpCount = jumpCount;
         knockBack = new Vector2(5, 15);
         InitializeDots();
@@ -67,7 +68,7 @@ public class Player : Entity
 
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
-            //AudioManager.Instance.PlaySound(SoundType.JUMP,1);
+            AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
             Jump();
             currentJumpCount--;
             dotsActive(false);
@@ -93,9 +94,8 @@ public class Player : Entity
 
     IEnumerator JumpTest(Vector2 dir)
     {
-        rb.velocity = new Vector2(dir.x, dir.y * jumpForce * 0.9f);
+        rb.velocity = new Vector2(rb.velocity.x, dir.y * jumpForce * 0.6f);
         yield return new WaitForSeconds(0.3f);
-
         if (!isGroundDetected())
         {
             GameObject effectObj = Instantiate(effectPrefabs, Ground.position, Quaternion.identity);
