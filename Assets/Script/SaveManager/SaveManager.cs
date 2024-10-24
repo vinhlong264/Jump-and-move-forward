@@ -8,7 +8,7 @@ public class SaveManager : Singleton<SaveManager>
     private GameData gameData;
     private List<ISaveManager> saveManagers; // List các Data cần lưu
     private FileDataHander dataHander; // lưu trữ vào file
-    [SerializeField] private string fileName; // tên file
+    [SerializeField] private string fileName = "GameData.json"; // tên file
     protected override void Awake()
     {
         base.Awake();
