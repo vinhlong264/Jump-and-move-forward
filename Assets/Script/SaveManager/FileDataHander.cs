@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class FileDataHander
@@ -14,26 +15,35 @@ public class FileDataHander
 
     public void SaveGame(GameData _gameData) // Save game
     {
-        string fullPath = Path.Combine(dataDirPath,dataFileName); // Lấy ra path gồm đường dẫn và file name thông qua Path.Combine()
+        string fullPath = Path.Combine(dataDirPath, dataFileName); // Lấy ra path gồm đường dẫn và file name thông qua Path.Combine()
 
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-            string dataToStore = JsonUtility.ToJson(_gameData, true);
+            string dataStore = JsonUtility.ToJson(_gameData, true);
+
             using (FileStream fs = new FileStream(fullPath, FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.Write(dataToStore);
+                    sw.Write(dataStore);
                 }
             }
 
         }
-        catch (System.Exception e)
+        catch (System.Exception ex)
         {
-            Debug.LogError("Error trying on save data: " + fullPath + "\n" + e.ToString());
+            Debug.LogError("Error trying on save data: " + fullPath + "\n" + ex.ToString());
         }
+    }
 
+    public bool isFileExists()
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+
+        if (File.Exists(fullPath)) return true;
+
+        return false;
     }
 
     public GameData loadGame()
@@ -61,7 +71,7 @@ public class FileDataHander
         }
         catch (System.Exception e)
         {
-            Debug.LogError("No file found: "+fullPath+"\n"+e.ToString());
+            Debug.LogError("No file found: " + fullPath + "\n" + e.ToString());
         }
 
 

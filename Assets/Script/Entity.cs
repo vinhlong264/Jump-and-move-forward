@@ -49,7 +49,7 @@ public class Entity : MonoBehaviour
         isFacingRight = !isFacingRight;
         transform.Rotate(0, 180, 0);
     }
-    protected bool isGroundDetected() => Physics2D.OverlapCircle(Ground.position, distanceToGround, mask);
+    protected Collider2D isGroundDetected() => Physics2D.OverlapCircle(Ground.position, distanceToGround, mask);
 
     public virtual void Die()
     {

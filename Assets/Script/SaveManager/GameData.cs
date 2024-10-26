@@ -3,12 +3,29 @@
 [System.Serializable]
 public class GameData // Class dùng để lưu trữ dữ liệu game level và các badge
 {
-    public int levelGame;
-    public List<string> badgeList; // List dùng để lưu trữ các GUID(Globally Unique Identifier), ID sẽ được gán duy nhất cho từng phần từ trong Assets
+    public List<UserData> allUsers;
 
-    public GameData() // Constructor khi game chưa có dữ liệu gì cả
+    public GameData()
     {
-        this.levelGame = 0;
+        allUsers = new List<UserData>();
+    }
+}
+
+[System.Serializable]
+public class UserData
+{
+    public string username;
+    public string password;
+
+    public int levelGame; // Level game
+    public float score; // Score
+    public List<string> badgeList;  // List dùng để lưu trữ các GUID(Globally Unique Identifier), ID sẽ được gán duy nhất cho từng phần từ trong Assets
+
+    public UserData()
+    {
+        levelGame = 0;
+        score = 0;
         badgeList = new List<string>();
     }
 }
+

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SaveManager : Singleton<SaveManager> 
+public class SaveManager : Singleton<SaveManager>
 {
-    private GameData gameData;
     private List<ISaveManager> saveManagers; // List các Data cần lưu
     private FileDataHander dataHander; // lưu trữ vào file
-    [SerializeField] private string fileName = "GameData.json"; // tên file
+    private string fileName = "GameData.json"; // tên file
+    private GameData _gameData;
+    private UserData _userData;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,42 +27,64 @@ public class SaveManager : Singleton<SaveManager>
 
     public void NewGame()
     {
-        gameData = new GameData(); // Khởi tạo dữ liệu game khi người chơi mới tải game
+        _gameData = new GameData()
+        {
+            allUsers = new List<UserData>()
+            {
+                new UserData()
+                {
+                    levelGame = 0,
+                    score = 0,
+                    badgeList = new List<string>()
+                }
+            }
+        }; // Khởi tạo dữ liệu game khi người chơi mới tải game
     }
 
     public void LoadData()
     {
-        gameData = dataHander.loadGame();
+        _gameData = dataHander.loadGame();
 
-        if (gameData == null) // Nếu không có dữ liệu sẽ load game với dữ liệu rỗng
+        var get = FindUserManager();
+
+        if (get != null)
         {
-            Debug.Log("No save data found!");
-            NewGame();
+            _userData = get;
         }
 
-        //Load data nếu có dữ liệu
         foreach (ISaveManager saveManager in saveManagers)
         {
-            saveManager.LoadGame(gameData);
+            saveManager.LoadGame(_userData);
         }
     }
 
     public void SaveGame() // Lưu dữ liệu game
     {
+        _userData = FindUserManager();
+
         foreach (ISaveManager saveManager in saveManagers)
         {
-            saveManager.SaveGame(ref gameData);
+            saveManager.SaveGame(ref _userData);
         }
 
-        dataHander.SaveGame(gameData);
+        //_gameData.allUsers.Add(_userData);
 
-        Debug.Log("Save finish");
+        dataHander.SaveGame(_gameData);
+
+        Debug.Log("Save Finish");
+
     }
 
     private void OnApplicationQuit()
     {
         SaveGame();
     }
+
+    private UserData FindUserManager()
+    {
+        return _gameData.allUsers.FirstOrDefault(x => x.username == DataOnly.UserName); // Lấy ra người chơi đăng nhập
+    }
+
 
     private List<ISaveManager> FindAllSaveManager()
     {

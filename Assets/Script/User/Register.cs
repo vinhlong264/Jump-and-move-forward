@@ -1,90 +1,136 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField UserName;
-    [SerializeField] private TMP_InputField Password;
+    private string filePath;
+    [SerializeField] private TMP_InputField userName;
+    [SerializeField] private TMP_InputField password;
+    [SerializeField] private TextMeshProUGUI Status;
+    private bool isRegister;
 
-    private string filepath;
 
-    private int maxCharacter = 16;
-    private int minCharacter = 0;
+    private int maxChacracter = 16;
+    private int minChacracter = 0;
+    private UserData user;
+    private GameData gameData;
 
     private void Start()
     {
-        filepath = Application.persistentDataPath + "/UserData.txt";
+        filePath = Application.persistentDataPath + "/GameData.json";
+        user = new UserData();
     }
 
-    public void RegisterUser()
+    public void userRegister()
     {
-        UserData userData = new UserData();
-
-        userData.username = UserName.text;
-        userData.password = Password.text;
+        user.username = userName.text;
+        user.password = password.text;
 
 
-        if (string.IsNullOrEmpty(userData.username) || string.IsNullOrEmpty(userData.password))
+        if(string.IsNullOrEmpty(user.username) || string.IsNullOrEmpty(user.password))
         {
-            Debug.Log("Vui lòng điền đầy đủ các trường");
+            Status.text = "Please fill in all fields";
             return;
         }
 
-        if((userData.username.Length < maxCharacter && userData.password.Length < maxCharacter)
-            || (userData.username.Length > minCharacter && userData.password.Length > minCharacter))
+        if((user.username.Length > maxChacracter && user.password.Length > maxChacracter)
+            || (user.username.Length <= minChacracter && user.password.Length <= minChacracter))
         {
-            Debug.Log("Vượt quá kí tự cho phép");
+            Status.text = "Exceeded allowed characters";
             return;
         }
 
-        if (isUserExists(userData.username))
-        {
-            Debug.Log("tên người dùng đã tồn tại");
-            return;
-        }
 
-        if (isFileExist(filepath))
+
+
+        try
         {
-            using(StreamWriter sw = new StreamWriter(filepath,true))
+            if (!isValidUser(user.username)) // Kiểm tra UserName có đang tồn tại không
             {
-                sw.WriteLine($"{userData.username} {userData.password}");
+                Status.text = "UserName is Exits";
+                return;
             }
 
-            Debug.Log("Đăng kí thành công");
+            if (File.Exists(filePath))
+            {
+                //Nếu file đã tồn tại, thì sẽ đọc và convert thành gameData
+                string jsonData = File.ReadAllText(filePath);
+                gameData = JsonUtility.FromJson<GameData>(jsonData) ?? new GameData();
+            }
+            else
+            {
+               //Nếu không thì tạo 1 gameData mới
+                gameData = new GameData();
+            }
+
+            //Thêm dữ liệu mới vào
+            gameData.allUsers.Add(user);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+            string dataStore = JsonUtility.ToJson(gameData,true);
+
+            using(FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                using(StreamWriter sw = new StreamWriter(fs))
+                {
+                    isRegister = true;
+                    sw.Write(dataStore);
+                }
+            }
+            Status.text = "Register Finish";
         }
+        catch(System.Exception e)
+        {
+            Debug.LogError("No trying on" + e.ToString() + ",Exception:" + filePath);
+        }
+
+
+        if (isRegister)
+        {
+            DataOnly.UserName = user.username;
+            Debug.Log(DataOnly.UserName);
+            StartCoroutine(loadScene());
+        }
+
+
     }
 
-    private bool isFileExist(string path)
+    IEnumerator loadScene()
     {
-        if (!File.Exists(path))
+        Observer.Instance.Notify(ActionType.LoadScene, 0);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Menu");
+    }
+
+
+    private bool isValidUser(string username)
+    {
+        if (!File.Exists(filePath))
         {
+            Debug.Log("File không tồn tại");
             return false;
         }
+
+        string loadToFile = File.ReadAllText(filePath);
+        Debug.Log("LoadToFile: "+string.Join("\n", loadToFile));
+
+        GameData gameData = JsonUtility.FromJson<GameData>(loadToFile);
+        
+        for(int i = 0; i < gameData.allUsers.Count; i++)
+        {
+            if(username == gameData.allUsers[i].username)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
-    private bool isUserExists(string _userName)
-    {
-        if (!isFileExist(filepath)) return false;
-
-        string[] data = File.ReadAllLines(filepath);
-        foreach(var x in data)
-        {
-            string[] cols = x.Split(' ');
-            if (_userName == cols[0])
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 }
 
-[System.Serializable]
-public class UserData
-{
-    public string username;
-    public string password;
-}
 

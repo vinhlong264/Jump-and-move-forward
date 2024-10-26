@@ -18,6 +18,7 @@ public class Player : Entity
 
     //Harmful effects
     private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
+    private bool isJump; // kiểm tra có đang nhảy không
 
     private CharacterStatus characterStatus;
 
@@ -68,7 +69,7 @@ public class Player : Entity
 
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
-            AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
+            //AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
             Jump();
             currentJumpCount--;
             dotsActive(false);
@@ -80,13 +81,11 @@ public class Player : Entity
 
         if (isOppositeDirection)
         {
-            //rb.AddForce(-getDirection.normalized * jumpForce, ForceMode2D.Impulse);
             StartCoroutine(JumpTest(-getMouse().normalized));
             isOppositeDirection = false;
         }
         else
-        {
-            //rb.AddForce(getDirection.normalized * jumpForce, ForceMode2D.Impulse);
+        {         
             StartCoroutine(JumpTest(getMouse().normalized));
         }
     }
@@ -94,6 +93,7 @@ public class Player : Entity
 
     IEnumerator JumpTest(Vector2 dir)
     {
+        isJump = true;
         rb.velocity = new Vector2(rb.velocity.x, dir.y * jumpForce * 0.6f);
         yield return new WaitForSeconds(0.3f);
         if (!isGroundDetected())
@@ -118,7 +118,7 @@ public class Player : Entity
 
     protected override void animatorChange()
     {
-        anim.SetBool("isJump", !isGroundDetected());
+        anim.SetBool("isJump", isJump);
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
@@ -127,6 +127,7 @@ public class Player : Entity
         if (isGroundDetected())
         {
             currentJumpCount = jumpCount;
+            isJump = false;
         }
     }
 

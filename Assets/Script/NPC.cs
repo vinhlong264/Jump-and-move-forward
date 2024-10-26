@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    [SerializeField] private ActionType actionType;
-
     [SerializeField] private float distanceDetected;
     [SerializeField] private LayerMask mask;
 
@@ -13,7 +11,7 @@ public class NPC : MonoBehaviour
 
         if(cast.collider != null)
         {
-            Observer.Instance.Notify(actionType, 0);
+            Observer.Instance.Notify(ActionType.Question, 0);
         }
     }
 

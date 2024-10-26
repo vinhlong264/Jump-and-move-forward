@@ -7271,8 +7271,16 @@ MonoBehaviour:
     point_3: 0
   ScoreFinal: 0
   levelGame: 1
-  listItems: []
+  listItems:
+  - {fileID: 11400000, guid: 4f4bf3c9afa05024c8b42fa587186c7a, type: 2}
   loadItemDatabase: []
+  user:
+    username: 
+    password: 
+    userData:
+      levelGame: 0
+      score: 0
+      badgeList: []
 --- !u!4 &1872575219
 Transform:
   m_ObjectHideFlags: 0
@@ -7892,7 +7900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6945b714cf109de43af8e6e6020281f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: GameData.json
 --- !u!4 &2018406503
 Transform:
   m_ObjectHideFlags: 0
@@ -7902,7 +7909,7 @@ Transform:
   m_GameObject: {fileID: 2018406501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57.25495, y: -20.832722, z: -0.6671001}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

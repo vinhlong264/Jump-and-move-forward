@@ -11,15 +11,13 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     private string filepath;
     public float ScoreFinal;
 
-
     [Header("Save game")]
     [SerializeField] private int levelGame;
     public List<ItemSO> listItems = new List<ItemSO>();
 
-
-
-    [Header("DataBase")]
-    public List<ItemSO> loadItemDatabase;
+    //[Header("DataBase")]
+    //public List<ItemSO> loadItemDatabase;
+    //public UserData user = new UserData();
 
 
     protected override void Awake()
@@ -31,7 +29,6 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     private void Start()
     {
         filepath = Application.persistentDataPath + "/DataScore.txt";
-        Debug.Log(File.Exists(filepath));
     }
     public void addScore()
     {
@@ -75,34 +72,32 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         listItems.Add(_item);
     }
 
-    public void LoadGame(GameData _data)
+    public void LoadGame(UserData _data)
     {
-        _data.levelGame = this.levelGame;
-
+        this.levelGame = _data.levelGame;
+        this.score = _data.score;
         foreach(var item in _data.badgeList)
         {
-            foreach(var i in GetItemDataBase())
+            foreach(var j in GetItemDataBase())
             {
-                if(i != null && i.itemID == item)
+                if(j != null && j.itemID == item)
                 {
-                    listItems.Add(i);
+                    listItems.Add(j);
                 }
             }
         }
-
     }
 
-    public void SaveGame(ref GameData _data)
+    public void SaveGame(ref UserData _data)
     {
-        this.levelGame = _data.levelGame;
+        _data.levelGame = this.levelGame;
+        _data.score = this.score;
+        _data.badgeList.Clear(); // xóa đi những phần tử cũ
 
-        _data.badgeList.Clear();
-
-        foreach (var item in listItems)
+        foreach(var item in listItems)
         {
             _data.badgeList.Add(item.itemID);
         }
-
     }
 
 
