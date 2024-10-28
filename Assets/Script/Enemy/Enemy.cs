@@ -7,6 +7,25 @@ public class Enemy : Entity
     [SerializeField] protected float speed;
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
+        {
+            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
+            if (character != null)
+            {
+                if (character.transform.DotDirectionTo(transform, Vector2.down))
+                {
+                    Die();
+                }
+                else
+                {
+                    hitCharacter(character);
+                }
+            }
+        }
+    }
+
+    protected virtual void hitCharacter(CharacterStatus character)
+    {
 
     }
 

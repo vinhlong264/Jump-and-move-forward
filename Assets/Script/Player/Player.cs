@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    private Vector3 getDirection;
+    [SerializeField] private Vector2 finalDirection;
+    [SerializeField] private Vector2 laughDirection;
     [SerializeField] private int jumpCount;
     [SerializeField] private int currentJumpCount;
-    [SerializeField] private float jumpForce;
     [SerializeField] private GameObject effectPrefabs;
 
     [Header("Anim Dot")]
@@ -62,7 +62,13 @@ public class Player : Entity
 
         if (Input.GetMouseButton(0) && currentJumpCount > 0)
         {
-            getDirection = getMouse();
+            finalDirection = new Vector2(getMouse().normalized.x * laughDirection.x , getMouse().normalized.y * laughDirection.y);
+
+            for (int i = 0; i < Dots.Length; i++)
+            {
+                Dots[i].transform.position = dotsPosition(i * betweenSpaceDot);
+            }
+
             rb.velocity = new Vector2(0, rb.velocity.y * characterStatus.airJump);
             dotsActive(true);
         }
@@ -70,38 +76,38 @@ public class Player : Entity
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
             //AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
-            Jump();
+            Jump(finalDirection);
             currentJumpCount--;
             dotsActive(false);
         }
     }
 
-    private void Jump()
+    private void Jump(Vector2 _dir)
     {
 
         if (isOppositeDirection)
         {
-            StartCoroutine(JumpTest(-getMouse().normalized));
+            StartCoroutine(JumpForce(finalDirection));
             isOppositeDirection = false;
         }
         else
         {         
-            StartCoroutine(JumpTest(getMouse().normalized));
+            StartCoroutine(JumpForce(finalDirection));
         }
     }
 
 
-    IEnumerator JumpTest(Vector2 dir)
+    IEnumerator JumpForce(Vector2 dir)
     {
         isJump = true;
-        rb.velocity = new Vector2(rb.velocity.x, dir.y * jumpForce * 0.6f);
+        rb.velocity = new Vector2(dir.x, dir.y * 0.6f);
         yield return new WaitForSeconds(0.3f);
         if (!isGroundDetected())
         {
             GameObject effectObj = Instantiate(effectPrefabs, Ground.position, Quaternion.identity);
         }
 
-        rb.AddForce(dir * jumpForce, ForceMode2D.Impulse);
+        rb.AddForce(dir, ForceMode2D.Impulse);
     }
 
     public void activeJumpingAir()
@@ -144,9 +150,9 @@ public class Player : Entity
 
     private Vector2 getMouse()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePos - transform.position;
-        return direction;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 playerPos = transform.position;
+        return mousePos - playerPos;
     }
     #region animDots
     private void InitializeDots()
@@ -163,15 +169,17 @@ public class Player : Entity
     {
         for (int i = 0; i < Dots.Length; i++)
         {
-            Dots[i].transform.position = dotsPosition(i * betweenSpaceDot);
             Dots[i].SetActive(_isActive);
         }
     }
 
     private Vector2 dotsPosition(float _t)
     {
-        Vector2 dir = getMouse().normalized;
-        return (Vector2)transform.position + dir * _t;
+        Vector2 dir = new Vector2(getMouse().normalized.x * laughDirection.x , getMouse().normalized.y * laughDirection.y);
+
+        Vector2 postion = (Vector2)transform.position + dir * _t + 0.5f * (Physics2D.gravity * rb.gravityScale) * Mathf.Pow(_t, 2);
+
+        return postion;
     }
     #endregion
 }

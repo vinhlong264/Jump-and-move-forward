@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -24,5 +25,16 @@ public class UI_Manager : MonoBehaviour
         {
             acticve.SetActive(true);
         }
+    }
+    public void logOut()
+    {
+        StartCoroutine(loadScene());
+    }
+
+    IEnumerator loadScene()
+    {
+        Observer.Instance.Notify(ActionType.LoadScene, 0);
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("LoginAndRegister");
     }
 }

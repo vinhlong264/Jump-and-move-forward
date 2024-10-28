@@ -18,13 +18,13 @@ public class UserData
     public string password;
 
     public int levelGame; // Level game
-    public float score; // Score
+    public List<float> listScoreData; // Score
     public List<string> badgeList;  // List dùng để lưu trữ các GUID(Globally Unique Identifier), ID sẽ được gán duy nhất cho từng phần từ trong Assets
 
     public UserData()
     {
         levelGame = 0;
-        score = 0;
+        listScoreData = new List<float>();
         badgeList = new List<string>();
     }
 }

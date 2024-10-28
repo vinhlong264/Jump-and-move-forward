@@ -10,23 +10,22 @@ public class Badge : MonoBehaviour
     void Start()
     {
         uiBadge = UI_BadgeParent.GetComponentsInChildren<UI_Badge>();
-
     }
 
     private void Update()
     {
-        if(GameManager.Instance.listItems.Count <= 0) return;
+        if (GameManager.Instance.listItems.Count <= 0) return;
 
 
-        if(GameManager.Instance.listItems.Count <= 1)
+        if (GameManager.Instance.listItems.Count <= 1)
         {
             uiBadge[0].setUp(GameManager.Instance.listItems[0]);
         }
         else
         {
-            for(int i = 0; i <  uiBadge.Length; i++)
+            for (int i = 0; i < GameManager.Instance.listItems.Count; i++)
             {
-                uiBadge[i].setUp(GameManager.Instance.listItems[i]); 
+                uiBadge[i].setUp(GameManager.Instance.listItems[i]);
             }
         }
     }

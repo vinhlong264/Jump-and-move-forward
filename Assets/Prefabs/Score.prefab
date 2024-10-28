@@ -112,8 +112,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3587707560782702908}
   - component: {fileID: 3256704445053529709}
+  - component: {fileID: 6299396799473949010}
   - component: {fileID: 4664270624330331657}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,10 +166,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5541197, y: -0.37166703}
+  m_Offset: {x: 0.39802146, y: -0.38781515}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -179,8 +180,35 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3994796, y: 1.2167418}
+  m_Size: {x: 1.0872831, y: 0.79689175}
   m_EdgeRadius: 0
+--- !u!50 &6299396799473949010
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4454561369321869204}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 3
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &4664270624330331657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d475b5fbd5bfee24f9352ea766c6d783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  radius: 3
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4676736838459411012
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,8 +318,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -321,7 +354,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1.2208672, y: 0, z: -0.6104312, w: 0}
+  m_margin: {x: 9.883976, y: 0, z: 7.9561734, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -362,8 +395,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5541, y: -0.3935}
-  m_SizeDelta: {x: 72.5055, y: 60.6403}
+  m_AnchoredPosition: {x: 0.3806, y: -0.3868}
+  m_SizeDelta: {x: 55.1572, y: 38.681}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6781112535689621825
 CanvasRenderer:

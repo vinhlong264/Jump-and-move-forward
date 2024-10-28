@@ -8,40 +8,48 @@ public class HighScore : MonoBehaviour
     private string filepath;
     [SerializeField] GameObject ScoreLine;
     [SerializeField] Transform scoreParent;
-    [SerializeField] List<ScoreData> listScore = new List<ScoreData>();
+    [SerializeField] List<ScoreData> listHighScore = new List<ScoreData>();
+    [SerializeField] List<float> scoreDump;
 
     void Start()
     {
-        filepath = Application.persistentDataPath + "/DataScore.txt";
-        string[] scoreData = File.ReadAllLines(filepath);
-
-        for(int i = 0; i < scoreData.Length; i++)
+        foreach(var x in GameManager.Instance.listScore)
         {
-            Debug.Log(scoreData[i]);
+            scoreDump.Add(x);
+        }
+
+        Debug.Log(GameManager.Instance.listScore.Count);
+
+        if (scoreDump.Count <= 0) return;
+
+
+        for (int i = 0; i < scoreDump.Count; i++)
+        {
+            Debug.Log(scoreDump[i]);
         }
 
 
-        foreach(Transform child in scoreParent)
+        foreach (Transform child in scoreParent)
         {
             Destroy(child.gameObject);
         }
 
-        for(int i = 0; i < scoreData.Length; i++)
+        for (int i = 0; i < scoreDump.Count; i++)
         {
             ScoreData newScore = new ScoreData();
             newScore.rank = i + 1;
-            newScore.score = float.Parse(scoreData[i]);
-            listScore.Add(newScore);
+            newScore.score = scoreDump[i];
+            listHighScore.Add(newScore);
         }
 
-        if(listScore.Count > 0)
+        if (listHighScore.Count > 0)
         {
-            listScore = listScore.OrderByDescending(x => x.score).Take(3).ToList();
-            for(int i = 0; i < listScore.Count; i++)
+            listHighScore = listHighScore.OrderByDescending(x => x.score).Take(3).ToList();
+            for (int i = 0; i < listHighScore.Count; i++)
             {
-                listScore[i].rank = i + 1;
+                listHighScore[i].rank = i + 1;
                 GameObject Score = Instantiate(ScoreLine, scoreParent);
-                Score.GetComponent<ScoreController>().setScore(listScore[i]);
+                Score.GetComponent<ScoreController>().setScore(listHighScore[i]);
             }
         }
 

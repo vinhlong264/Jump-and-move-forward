@@ -1,14 +1,16 @@
-﻿using Extension;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Extension;
 public class Observer : Singleton<Observer>
 {
-    public Dictionary<ActionType, Action<int>> observers = new Dictionary<ActionType, Action<int>>();
+
     protected override void Awake()
     {
         base.Awake();
     }
+
+    public  Dictionary<ActionType, Action<int>> observers = new Dictionary<ActionType, Action<int>>();
     public void addObserver(ActionType key, Action<int> callBack) // đăng kí sự kiện
     {
         if (!observers.ContainsKey(key))
@@ -36,7 +38,7 @@ public class Observer : Singleton<Observer>
 
     public void Notify(ActionType key, int value) // Thông báo sự kiện
     {
-        foreach(KeyValuePair<ActionType,Action<int>> pair in new Dictionary<ActionType,Action<int>>(observers))
+        foreach (KeyValuePair<ActionType, Action<int>> pair in new Dictionary<ActionType, Action<int>>(observers))
         {
             if (pair.Key.Equals(key))
             {

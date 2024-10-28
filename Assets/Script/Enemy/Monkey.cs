@@ -69,22 +69,13 @@ public class Monkey : Enemy
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
-        {
-            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
-            if (character != null)
-            {
-                if (character.transform.DotDirectionTo(transform, Vector2.down))
-                {
-                    Die();
-                }
-                else
-                {
-                    character.takeDame();
-                    character.reverseDirection();
-                }
-            }
-        }
+        base.OnCollisionEnter2D(collision);
+    }
+
+    protected override void hitCharacter(CharacterStatus character)
+    {
+        character.takeDame();
+        character.reverseDirection();
     }
 
     public override void Die()

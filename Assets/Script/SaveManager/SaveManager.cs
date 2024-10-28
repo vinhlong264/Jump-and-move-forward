@@ -34,7 +34,7 @@ public class SaveManager : Singleton<SaveManager>
                 new UserData()
                 {
                     levelGame = 0,
-                    score = 0,
+                    listScoreData = new List<float>(),
                     badgeList = new List<string>()
                 }
             }

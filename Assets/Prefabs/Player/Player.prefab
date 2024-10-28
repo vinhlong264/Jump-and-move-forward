@@ -309,13 +309,14 @@ MonoBehaviour:
     m_Bits: 8
   isFacingDirection: -1
   isFacingRight: 0
+  finalDirection: {x: 0, y: 0}
+  laughDirection: {x: 5, y: 15}
   jumpCount: 2
   currentJumpCount: 0
-  jumpForce: 17
   effectPrefabs: {fileID: 2437889658009899119, guid: 5c9d4057b0cbd4d4bacf1041c456f68e, type: 3}
   dotPrefabs: {fileID: 3177442695497469245, guid: 892cdb07ced0fd7418a572ba588a2050, type: 3}
-  amountDot: 4
-  betweenSpaceDot: 2
+  amountDot: 10
+  betweenSpaceDot: 0.05
   dotParent: {fileID: 7633659169865795545}
   Dots: []
 --- !u!114 &2206624628264123399

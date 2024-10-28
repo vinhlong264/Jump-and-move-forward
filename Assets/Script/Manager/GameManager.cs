@@ -6,10 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>, ISaveManager
 {
-    public float score;
-    public Point pointManager;
+    public float score; // Score
+    public Point pointManager; // Quản lý Score
     private string filepath;
     public float ScoreFinal;
+    public List<float> listScore = new List<float>();
 
     [Header("Save game")]
     [SerializeField] private int levelGame;
@@ -54,17 +55,9 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void saveScore()
     {
-        if (File.Exists(filepath))
-        {
-            ScoreFinal = pointManager.sumPoint(pointManager.point_1, pointManager.point_2, pointManager.point_3);
+        ScoreFinal = pointManager.sumPoint(pointManager.point_1,pointManager.point_2 , pointManager.point_3);
 
-            using (StreamWriter writer = new StreamWriter(filepath, true))
-            {
-                writer.Write(ScoreFinal);
-            }
-
-            Debug.Log("Ghi file thành công");
-        }
+        listScore.Add(ScoreFinal);
     }
 
     public void addItem(ItemSO _item)
@@ -75,7 +68,13 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void LoadGame(UserData _data)
     {
         this.levelGame = _data.levelGame;
-        this.score = _data.score;
+        
+        foreach(var socre in _data.listScoreData)
+        {
+            listScore.Add(socre);
+        }
+
+
         foreach(var item in _data.badgeList)
         {
             foreach(var j in GetItemDataBase())
@@ -91,7 +90,15 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     public void SaveGame(ref UserData _data)
     {
         _data.levelGame = this.levelGame;
-        _data.score = this.score;
+        
+        _data.listScoreData.Clear();
+
+        foreach(var score in this.listScore)
+        {
+            _data.listScoreData.Add(score);
+        }
+
+
         _data.badgeList.Clear(); // xóa đi những phần tử cũ
 
         foreach(var item in listItems)
