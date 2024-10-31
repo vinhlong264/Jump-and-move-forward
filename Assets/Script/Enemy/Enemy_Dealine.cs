@@ -1,35 +1,20 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy_Dealine : Enemy
+public class Enemy_Dealine : MonoBehaviour
 {
-    protected override void Start()
-    {
-        base.Start();
-    }
+    [SerializeField] private GameObject bullet;
 
 
-    private void FixedUpdate()
+    private void Update()
     {
-        StartCoroutine(WaitRun());
-    }
-
-    IEnumerator WaitRun()
-    {
-        yield return new WaitForSeconds(2);
-        rb.velocity = Vector2.up * speed;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.GetComponent<CharacterStatus>() != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            CharacterStatus character = collision.GetComponent<CharacterStatus>();
+            GameObject newBulet = Instantiate(bullet,transform.position, Quaternion.identity);
 
-            if (character != null)
+            if(newBulet != null)
             {
-                character.Die();
-                rb.bodyType = RigidbodyType2D.Static;
+                newBulet.GetComponent<Angry_bullet>().AttackTarget(CharacterStatus.Instance.transform, 10f);
             }
         }
     }

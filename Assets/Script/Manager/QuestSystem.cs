@@ -18,11 +18,17 @@ public class QuestSystem : MonoBehaviour
     [SerializeField] private Animator animText;
     [SerializeField] private Animator animUIQuestion;
 
-    [Header("Gameobject")]
+    [Header("Map")]
     [SerializeField] private int indexMap = 0;
     [SerializeField] private GameObject[] Map;
-
     [SerializeField] private ActionType actionType;
+
+    [Header("GameObejct")]
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private float timeDuration;
+    [SerializeField] private float timeCheck;
+    [SerializeField] private bool isDeadLine;
+
 
 
     private void OnEnable()
@@ -39,8 +45,27 @@ public class QuestSystem : MonoBehaviour
     {
         gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
+        timeCheck = timeDuration;
         setQuestion();
-    }    
+    }
+
+
+
+    private void Update()
+    {
+        if (isDeadLine)
+        {
+            timeCheck -= Time.deltaTime;
+            if(timeCheck <= 0)
+            {
+                isDeadLine = false;
+                timeCheck = timeDuration;
+                Debug.Log("Quá thời hạn");
+            }
+        }
+    }
+
+
 
     private void setQuestion()
     {
@@ -58,6 +83,7 @@ public class QuestSystem : MonoBehaviour
         {
             notifyAnswer.text = "Correct!!";
             GameManager.Instance.score += currentQuestion.point;
+            isDeadLine = false;
         }
         else
         {
@@ -75,6 +101,7 @@ public class QuestSystem : MonoBehaviour
         {
             notifyAnswer.text = "Correct!!";
             GameManager.Instance.score += currentQuestion.point;
+            isDeadLine = false;
         }
         else
         {
@@ -116,5 +143,6 @@ public class QuestSystem : MonoBehaviour
     {
         gameObject.SetActive(true);
         CharacterStatus.Instance.noJump = true;
+        isDeadLine = true;
     }
 }

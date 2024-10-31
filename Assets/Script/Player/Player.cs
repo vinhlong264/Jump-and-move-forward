@@ -28,7 +28,7 @@ public class Player : Entity
         characterStatus = GetComponent<CharacterStatus>();
 
         currentJumpCount = jumpCount;
-        knockBack = new Vector2(5, 15);
+        knockBack = new Vector2(5, 10);
         InitializeDots();
     }
 

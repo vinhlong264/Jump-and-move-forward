@@ -13,7 +13,7 @@ public class Observer : Singleton<Observer>
     public  Dictionary<ActionType, Action<int>> observers = new Dictionary<ActionType, Action<int>>();
     public void addObserver(ActionType key, Action<int> callBack) // đăng kí sự kiện
     {
-        if (!observers.ContainsKey(key))
+        if (!observers.ContainsKey(key)) // Nếu key không tồn tại thì add thêm 1 key và callback
         {
             Debug.Log("Đăng kí sự kiện");
             observers.Add(key, callBack);
