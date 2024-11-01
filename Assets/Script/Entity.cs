@@ -11,8 +11,8 @@ public class Entity : MonoBehaviour
     protected Vector2 knockBack;
 
     [Header("Facing Controller")]
-    [SerializeField] protected int isFacingDirection = -1;
-    [SerializeField] protected bool isFacingRight = false;
+    [SerializeField] protected int isFacingDirection;
+    [SerializeField] protected bool isFacingRight;
 
 
     protected Rigidbody2D rb;

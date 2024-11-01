@@ -42,5 +42,6 @@ public class Chest : MonoBehaviour
         Vector2 velocity = new Vector2(Random.Range(-5,5),Random.Range(12,15));
 
         newScore.GetComponent<Rigidbody2D>().velocity = velocity;
+        GetComponent<Collider2D>().isTrigger = true;
     }
 }

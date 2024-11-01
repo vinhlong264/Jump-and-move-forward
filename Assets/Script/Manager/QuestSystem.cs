@@ -13,8 +13,8 @@ public class QuestSystem : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI descriptionText;
-
     [SerializeField] private TextMeshProUGUI notifyAnswer;
+    [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private Animator animText;
     [SerializeField] private Animator animUIQuestion;
 
@@ -25,6 +25,7 @@ public class QuestSystem : MonoBehaviour
 
     [Header("GameObejct")]
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform firePos;
     [SerializeField] private float timeDuration;
     [SerializeField] private float timeCheck;
     [SerializeField] private bool isDeadLine;
@@ -46,6 +47,9 @@ public class QuestSystem : MonoBehaviour
         gameObject.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
         timeCheck = timeDuration;
+        timeText.text = timeCheck.ToString();
+
+
         setQuestion();
     }
 
@@ -58,10 +62,21 @@ public class QuestSystem : MonoBehaviour
             timeCheck -= Time.deltaTime;
             if(timeCheck <= 0)
             {
-                isDeadLine = false;
                 timeCheck = timeDuration;
+                GameObject newBullet = Instantiate(bullet, firePos.position, Quaternion.identity);
+                if(newBullet != null)
+                {
+                    newBullet.GetComponent<Angry_bullet>().AttackTarget(CharacterStatus.Instance.transform, 5f);
+                }
+
                 Debug.Log("Quá thời hạn");
             }
+            else
+            {
+                timeText.text = timeCheck.ToString();
+            }
+
+                    
         }
     }
 
@@ -70,7 +85,7 @@ public class QuestSystem : MonoBehaviour
     private void setQuestion()
     {
         int randomIndex = Random.Range(0, listQuestion.Count); // Đảo câu hỏi 1 cách ngẫu nhiên
-        currentQuestion = listQuestion[randomIndex];
+        currentQuestion = listQuestion[randomIndex]; // Lấy ra câu hỏi được chọn
         descriptionText.text = currentQuestion.Description;
 
         notifyAnswer.text = "";
@@ -125,7 +140,7 @@ public class QuestSystem : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
-    private void setActive()
+    private void setActive() // Quản lý việc mở khóa map tiếp theo
     {
         CharacterStatus.Instance.noJump = false;
         activeMap();

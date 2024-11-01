@@ -6,23 +6,28 @@ public class Bird : Enemy
 {
     [Space]
     [SerializeField] private List<Transform> transformTarget = new List<Transform>();
-    public int indexTarget = 0;
+    private int indexTarget = 0;
+    [SerializeField] private int amountTarget;
     protected override void Start()
     {
         base.Start();
+        amountTarget = transformTarget.Count;
     }
 
     protected override void Update()
     {
-        if (transformTarget.Count >= 3)
+        if (transformTarget.Count <= 0) return;
+
+
+        if (transformTarget.Count >= amountTarget)
         {
             transform.position = Vector2.MoveTowards(transform.position, transformTarget[indexTarget].position, speed * Time.deltaTime);
             if (Vector2.Distance(transform.position, transformTarget[indexTarget].position) < 0.1f)
             {
-                facingController(transform.position.x);
+                Facing();
                 indexTarget++;
 
-                if (indexTarget >= 3)
+                if (indexTarget >= amountTarget)
                 {
                     indexTarget = 0;
                 }
