@@ -15,7 +15,7 @@ public class Score : MonoBehaviour
         if(collider != null)
         {
             target = collider.transform;
-            transform.position = Vector2.MoveTowards(transform.position , target.position, 2f* Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position , target.position, 7f* Time.deltaTime);
         }
         else
         {
