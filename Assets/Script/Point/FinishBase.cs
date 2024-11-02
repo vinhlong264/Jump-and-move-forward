@@ -9,15 +9,20 @@ public class FinishBase : MonoBehaviour
     protected SpriteRenderer sr;
     [SerializeField] protected ItemSO ItemSO;
 
-    protected virtual void setUp(ItemSO _itemSO)
-    {
-        sr.sprite = _itemSO.sr;
-    }
 
     protected virtual void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         setUp(ItemSO);
+    }
+    protected virtual void setUp(ItemSO _itemSO)
+    {
+        sr.sprite = _itemSO.sr;
+    }
+
+    protected void OnValidate()
+    {
+        GetComponent<SpriteRenderer>().sprite = ItemSO.sr;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)

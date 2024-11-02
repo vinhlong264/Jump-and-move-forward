@@ -23,12 +23,12 @@ public class QuestSystem : MonoBehaviour
     [SerializeField] private GameObject[] Map;
     [SerializeField] private ActionType actionType;
 
-    [Header("GameObejct")]
+    [Header("Deadline")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePos;
     [SerializeField] private float timeDuration;
-    [SerializeField] private float timeCheck;
-    [SerializeField] private bool isDeadLine;
+                     private float timeCheck;
+                     private bool isDeadLine;
 
 
 
@@ -73,10 +73,12 @@ public class QuestSystem : MonoBehaviour
             }
             else
             {
-                timeText.text = timeCheck.ToString();
+                timeText.text = timeCheck.ToString("f2");
             }
-
-                    
+        }
+        else
+        {
+            timeCheck = timeDuration;
         }
     }
 
@@ -99,6 +101,7 @@ public class QuestSystem : MonoBehaviour
             notifyAnswer.text = "Correct!!";
             GameManager.Instance.score += currentQuestion.point;
             isDeadLine = false;
+            //timeCheck = timeDuration;
         }
         else
         {
@@ -117,6 +120,7 @@ public class QuestSystem : MonoBehaviour
             notifyAnswer.text = "Correct!!";
             GameManager.Instance.score += currentQuestion.point;
             isDeadLine = false;
+            //timeCheck = timeDuration;
         }
         else
         {

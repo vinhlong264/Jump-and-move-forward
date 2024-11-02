@@ -24,8 +24,8 @@ public class Bird : Enemy
             transform.position = Vector2.MoveTowards(transform.position, transformTarget[indexTarget].position, speed * Time.deltaTime);
             if (Vector2.Distance(transform.position, transformTarget[indexTarget].position) < 0.1f)
             {
-                Facing();
                 indexTarget++;
+                Facing();
 
                 if (indexTarget >= amountTarget)
                 {

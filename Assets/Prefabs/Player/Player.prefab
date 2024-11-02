@@ -310,7 +310,7 @@ MonoBehaviour:
   isFacingDirection: -1
   isFacingRight: 0
   finalDirection: {x: 0, y: 0}
-  laughDirection: {x: 5, y: 15}
+  laughDirection: {x: 7, y: 15}
   jumpCount: 2
   currentJumpCount: 0
   effectPrefabs: {fileID: 2437889658009899119, guid: 5c9d4057b0cbd4d4bacf1041c456f68e, type: 3}

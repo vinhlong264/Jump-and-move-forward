@@ -15,6 +15,7 @@ public class Learn_1 : FinishBase
         if (collision.GetComponent<CharacterStatus>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
+            GameManager.Instance.addItem(ItemSO);
             nextLevel(nameScene, sceneLevel);
         }
     }
