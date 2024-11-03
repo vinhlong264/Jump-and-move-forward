@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 116365581}
@@ -1092,6 +1092,7 @@ MonoBehaviour:
   myMixer: {fileID: 24100000, guid: 49915e2cf65ece94682749781e43e407, type: 2}
   musicSlider: {fileID: 1289323694}
   sfxSlider: {fileID: 1111316026}
+  pauseGameObj: {fileID: 0}
 --- !u!1 &225788715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,7 +1440,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 730980840}
@@ -1572,7 +1573,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 595785821}
@@ -1793,7 +1794,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1583438553}
@@ -2403,7 +2404,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1512368751}
@@ -3508,7 +3509,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1512368751}
@@ -6261,11 +6262,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: logOut
-        m_Mode: 1
+        m_MethodName: isEnableGameObj
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7173,7 +7174,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1512368751}
@@ -8442,7 +8443,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 200527688}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1512368751}
@@ -8574,7 +8575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2018406502
 MonoBehaviour:
   m_ObjectHideFlags: 0

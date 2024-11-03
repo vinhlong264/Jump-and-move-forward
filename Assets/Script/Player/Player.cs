@@ -75,7 +75,7 @@ public class Player : Entity
 
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
-            //AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
+            AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
             Jump(finalDirection);
             currentJumpCount--;
             dotsActive(false);

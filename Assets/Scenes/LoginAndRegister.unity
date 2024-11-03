@@ -998,7 +998,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 238657245}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 843209680}
@@ -2248,7 +2248,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 238657245}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 351763783}
@@ -2381,7 +2381,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 238657245}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1687261147}
@@ -2511,14 +2511,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  ScoreFinal: 0
+  levelGame: 0
   pointManager:
     point_1: 0
     point_2: 0
     point_3: 0
-  ScoreFinal: 0
-  listScore: []
-  levelGame: 0
   listItems: []
+  listScore: []
 --- !u!4 &709468044
 Transform:
   m_ObjectHideFlags: 0
@@ -3276,7 +3276,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 238657245}
         m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
-        m_MethodName: isActiveGameObj
+        m_MethodName: isEnableGameObj
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1687261147}

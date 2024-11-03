@@ -50,7 +50,7 @@ public class Register : MonoBehaviour
         {
             if (!isValidUser(user.username)) // Kiểm tra UserName có đang tồn tại không
             {
-                Status.text = "UserName is Exits";
+                Status.text = "Username already exists";
                 return;
             }
 

@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Learn_1 : FinishBase
 {
-    [SerializeField] Point pointLearn_1;
-
     protected override void Start()
     {
         base.Start();
@@ -15,6 +13,7 @@ public class Learn_1 : FinishBase
         if (collision.GetComponent<CharacterStatus>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
+            GameManager.Instance.winLevel();
             GameManager.Instance.addItem(ItemSO);
             nextLevel(nameScene, sceneLevel);
         }
@@ -23,6 +22,6 @@ public class Learn_1 : FinishBase
     protected override void savePoint(Point _point)
     {
         _point.point_1 = GameManager.Instance.score;
-        GameManager.Instance.resetScore();
+        //GameManager.Instance.resetScore();
     }
 }

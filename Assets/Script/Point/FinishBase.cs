@@ -13,7 +13,6 @@ public class FinishBase : MonoBehaviour
     protected virtual void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        setUp(ItemSO);
     }
     protected virtual void setUp(ItemSO _itemSO)
     {
