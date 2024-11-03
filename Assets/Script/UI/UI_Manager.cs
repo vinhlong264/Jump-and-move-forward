@@ -10,18 +10,17 @@ public class UI_Manager : MonoBehaviour
     {
         if (listUI.Length <= 0) return;
 
-        isActiveGameObj(listUI[0]);
+        isEnableGameObj(listUI[0]);
     }
 
-
-    public void isActiveGameObj(GameObject acticve)
+    public void isEnableGameObj(GameObject acticve)
     {
         for (int i = 0; i < listUI.Length; i++)
         {
             listUI[i].SetActive(false);
         }
 
-        if(acticve != null)
+        if (acticve != null)
         {
             acticve.SetActive(true);
         }

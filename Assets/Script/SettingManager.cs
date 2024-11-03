@@ -1,3 +1,4 @@
+﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -7,12 +8,14 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private GameObject pauseGameObj;
 
     private void Start()
     {
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             loadVolume();
+            Debug.Log(PlayerPrefs.GetFloat("musicSFX"));
         }
         else
         {
@@ -20,7 +23,6 @@ public class SettingManager : MonoBehaviour
             setSFX();
         }
     }
-
     public void setMusic()
     {
         float volumeMusic = musicSlider.value;
@@ -35,9 +37,30 @@ public class SettingManager : MonoBehaviour
         PlayerPrefs.SetFloat("musicSFX" , volumeSFX);
     }
 
+    public void PauseGame()
+    {
+        if(pauseGameObj != null)
+        {
+            pauseGameObj.SetActive(true);
+            CharacterStatus.Instance.noJump = true;
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void ReseumeGame()
+    {
+        if(pauseGameObj != null)
+        {
+            pauseGameObj.SetActive(false);
+            CharacterStatus.Instance.noJump = false;
+            Time.timeScale = 1f;
+        }
+    }
+
+
     public void loadVolume()
     {
         musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        musicSlider.value = PlayerPrefs.GetFloat("musicSFX");
+        sfxSlider.value = PlayerPrefs.GetFloat("musicSFX");
     }
 }

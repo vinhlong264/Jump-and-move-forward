@@ -1,12 +1,10 @@
-﻿using Extension;
-using UnityEngine;
-using UnityEngine.XR;
+﻿using UnityEngine;
 
 public class Monkey : Enemy
 {
     [SerializeField] private float timeIdle = 2;
     [SerializeField] private bool jump;
-    [SerializeField] private float jumpForce;
+    [SerializeField] private Vector2 jumpForce;
     private bool moving;
 
     protected override void Start()
@@ -41,7 +39,8 @@ public class Monkey : Enemy
         if (!isGroundDetected() && !jump)
         {
             jump = true;
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = jumpForce;
         }
     }
 

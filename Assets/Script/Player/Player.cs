@@ -167,6 +167,9 @@ public class Player : Entity
 
     private void dotsActive(bool _isActive)
     {
+        if (characterStatus.noJump) return;
+
+
         for (int i = 0; i < Dots.Length; i++)
         {
             Dots[i].SetActive(_isActive);

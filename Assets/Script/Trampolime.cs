@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Trampolime : MonoBehaviour
@@ -16,7 +14,7 @@ public class Trampolime : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(pushForce,ForceMode2D.Impulse);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(pushForce, ForceMode2D.Impulse);
             animator.SetBool("Force", true);
         }
     }
