@@ -44,15 +44,8 @@ public class Register : MonoBehaviour
         }
 
 
-
-
         try
         {
-            if (!isValidUser(user.username)) // Kiểm tra UserName có đang tồn tại không
-            {
-                Status.text = "Username already exists";
-                return;
-            }
 
             if (File.Exists(filePath))
             {
@@ -65,7 +58,6 @@ public class Register : MonoBehaviour
                //Nếu không thì tạo 1 gameData mới
                 gameData = new GameData();
             }
-
             //Thêm dữ liệu mới vào
             gameData.allUsers.Add(user);
 
@@ -73,14 +65,8 @@ public class Register : MonoBehaviour
 
             string dataStore = JsonUtility.ToJson(gameData,true);
 
-            using(FileStream fs = new FileStream(filePath, FileMode.Open))
-            {
-                using(StreamWriter sw = new StreamWriter(fs))
-                {
-                    isRegister = true;
-                    sw.Write(dataStore);
-                }
-            }
+            File.WriteAllText(filePath, dataStore);
+            isRegister = true;
             Status.text = "Register Finish";
         }
         catch(System.Exception e)
@@ -105,32 +91,6 @@ public class Register : MonoBehaviour
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Menu");
     }
-
-
-    private bool isValidUser(string username)
-    {
-        if (!File.Exists(filePath))
-        {
-            Debug.Log("File không tồn tại");
-            return false;
-        }
-
-        string loadToFile = File.ReadAllText(filePath);
-        Debug.Log("LoadToFile: "+string.Join("\n", loadToFile));
-
-        GameData gameData = JsonUtility.FromJson<GameData>(loadToFile);
-        
-        for(int i = 0; i < gameData.allUsers.Count; i++)
-        {
-            if(username == gameData.allUsers[i].username)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
 }
 
 

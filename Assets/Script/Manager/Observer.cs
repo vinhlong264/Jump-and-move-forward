@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Extension;
+using System.Linq;
 public class Observer : Singleton<Observer>
 {
-
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public  Dictionary<ActionType, Action<int>> observers = new Dictionary<ActionType, Action<int>>();
+    public Dictionary<ActionType, Action<int>> observers = new Dictionary<ActionType, Action<int>>();
     public void addObserver(ActionType key, Action<int> callBack) // đăng kí sự kiện
     {
-        if (!observers.ContainsKey(key)) // Nếu key không tồn tại thì add thêm 1 key và callback
+        if (!observers.ContainsKey(key))
         {
-            Debug.Log("Đăng kí sự kiện");
-            observers.Add(key, callBack);
+            observers[key] = callBack;
         }
 
         observers[key] += callBack;
@@ -38,12 +37,11 @@ public class Observer : Singleton<Observer>
 
     public void Notify(ActionType key, int value) // Thông báo sự kiện
     {
-        foreach (KeyValuePair<ActionType, Action<int>> pair in new Dictionary<ActionType, Action<int>>(observers))
+        Dictionary<ActionType , Action<int>> dumpDictionary = new Dictionary<ActionType, Action<int>>(observers);
+
+        if(dumpDictionary.TryGetValue(key , out var action))
         {
-            if (pair.Key.Equals(key))
-            {
-                pair.Value?.Invoke(value);
-            }
+            action?.Invoke(value);
         }
     }
 }

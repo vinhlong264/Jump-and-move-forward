@@ -22,6 +22,6 @@ public class Learn_1 : FinishBase
     protected override void savePoint(Point _point)
     {
         _point.point_1 = GameManager.Instance.score;
-        //GameManager.Instance.resetScore();
+        GameManager.Instance.resetScore();
     }
 }

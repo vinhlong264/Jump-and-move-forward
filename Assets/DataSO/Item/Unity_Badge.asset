@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Unity_Badge
   m_EditorClassIdentifier: 
   sr: {fileID: 21300000, guid: 4dec3bc557490f540a635046b655b3a0, type: 3}
+  itemID: 26#4#3

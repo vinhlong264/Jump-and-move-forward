@@ -17,6 +17,8 @@ public class Login : MonoBehaviour
     private void Start()
     {
         filePath = Application.persistentDataPath + "/GameData.json";
+
+        Debug.Log(Application.persistentDataPath);
     }
 
     public void userLogin()
@@ -55,7 +57,7 @@ public class Login : MonoBehaviour
             DataOnly.UserName = user.username;
             Debug.Log(DataOnly.UserName);
             Debug.Log("Đăng nhập thành công");
-            //Observer.Instance.Notify(ActionType.LoadScene, 0);
+            Observer.Instance.Notify(ActionType.LoadScene, 0);
             StartCoroutine(loadScene());
         }
     }

@@ -14,7 +14,9 @@ public class SaveManager : Singleton<SaveManager>
     protected override void Awake()
     {
         base.Awake();
+        DontDestroyOnLoad(instace);
     }
+
 
     private void Start()
     {
@@ -50,6 +52,10 @@ public class SaveManager : Singleton<SaveManager>
         if (get != null)
         {
             _userData = get;
+        }
+        else
+        {
+            NewGame();
         }
 
         foreach (ISaveManager saveManager in saveManagers)

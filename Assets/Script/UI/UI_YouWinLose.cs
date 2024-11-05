@@ -15,6 +15,7 @@ public class UI_YouWinLose : MonoBehaviour
 
     public void loadMenu()
     {
+        Time.timeScale = 1f;
         StartCoroutine(load());
     }
 

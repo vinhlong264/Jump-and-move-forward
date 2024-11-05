@@ -1,6 +1,5 @@
 ﻿using Extension;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>, ISaveManager
@@ -18,7 +17,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(Instance);
+        DontDestroyOnLoad(instace.gameObject);
     }
 
     public void addScore()
@@ -105,12 +104,20 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     private List<ItemSO> GetItemDataBase()
     {
         List<ItemSO> itemDataBase = new List<ItemSO>(); // Khởi tạo List mới để lưu trữ các ItemSo
-        string[] assetName = AssetDatabase.FindAssets("", new[] { "Assets/DataSO/item" }); // lấy ra dữ liệu bên trong tệp theo địa chỉ
-        foreach (string SOname in assetName)
+                                                        //#if UNITY_EDITOR
+                                                        //        string[] assetName = AssetDatabase.FindAssets("", new[] { "Assets/DataSO/item" }); // lấy ra dữ liệu bên trong tệp theo địa chỉ
+                                                        //        foreach (string SOname in assetName)
+                                                        //        {
+                                                        //            var SOpath = AssetDatabase.GUIDToAssetPath(SOname); // Lấy ra GUID từ đường dẫn
+                                                        //            var itemData = AssetDatabase.LoadAssetAtPath<ItemSO>(SOpath); // Convert lại qua ItemSo để add vào List
+                                                        //            itemDataBase.Add(itemData);
+                                                        //        }
+                                                        //#endif
+
+        DataBaseSO dataBaseSO = Resources.Load<DataBaseSO>("DataBase");
+        foreach (var item in dataBaseSO.DataBase)
         {
-            var SOpath = AssetDatabase.GUIDToAssetPath(SOname); // Lấy ra GUID từ đường dẫn
-            var itemData = AssetDatabase.LoadAssetAtPath<ItemSO>(SOpath); // Convert lại qua ItemSo để add vào List
-            itemDataBase.Add(itemData);
+            itemDataBase.Add(item);
         }
 
         return itemDataBase;
