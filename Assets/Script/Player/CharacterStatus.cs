@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using Extension;
 using UnityEngine;
-using Extension;
 
 public class CharacterStatus : Singleton<CharacterStatus>
 {
@@ -51,6 +50,7 @@ public class CharacterStatus : Singleton<CharacterStatus>
     {
         player.Die();
         UI_YouLose.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void recoverHealth()
@@ -63,52 +63,9 @@ public class CharacterStatus : Singleton<CharacterStatus>
         Observer.Instance.Notify(ActionType.Health, currentHealth);
     }
 
-    public void reverseDirection()
-    {
-        player.setUpPlayer(true , currentGravity);
-        StartCoroutine(colorChange());
-    }
     public void jumpAir()
     {
         player.activeJumpingAir();
-    }
-
-    private IEnumerator stopJumpIn(float _second) // hiệu ứng gây hại: Xóa khả năng nhảy
-    {
-        noJump = true;
-        sr.color = Color.blue;
-        Debug.Log("Ngừng nhảy");
-        yield return new WaitForSeconds(_second);
-        noJump = false;
-        sr.color = new Color(1, 1, 1, 1);
-        Debug.Log("Được phép nhảy");
-    }
-
-    private IEnumerator increaseFallSpeedIn(float _second) // hiệu ứng gây hại: Rơi nhanh hơn khi ở trạng thái trên không
-    {
-        airJump = 1f;
-        sr.color = Color.grey;
-        yield return new WaitForSeconds(_second);
-        airJump = currentAirJump;
-        sr.color = new Color(1, 1, 1, 1);
-    }
-
-    private IEnumerator colorChange()
-    {
-        sr.color = Color.red;
-        yield return new WaitForSeconds(1);
-        sr.color = new Color(1, 1, 1, 1);
-    }
-
-    private IEnumerator removeGravityBy(float _second)
-    {
-        player.setUpPlayer(false, 0);
-        bubble.SetActive(true);
-        Debug.Log("Không trọng lực");
-        yield return new WaitForSeconds(_second);
-        player.setUpPlayer(false, currentGravity);
-        bubble.SetActive(false);
-        Debug.Log("Trả trọng lực");
     }
 
     public int getCurrentHealth()

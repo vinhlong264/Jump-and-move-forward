@@ -13,6 +13,6 @@ public class EffectBase : MonoBehaviour
 
     private void DestroySelf()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

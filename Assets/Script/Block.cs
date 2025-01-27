@@ -6,6 +6,7 @@ public class Block : MonoBehaviour
 {
     private Animator anim;
     private Collider2D colider;
+    [SerializeField] private float timeDisappear;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -16,7 +17,7 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Invoke("DisappearBlock", 3f);
+            Invoke("DisappearBlock", timeDisappear);
         }
     }
 

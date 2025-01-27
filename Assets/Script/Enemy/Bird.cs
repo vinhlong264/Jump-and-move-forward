@@ -1,39 +1,48 @@
-using Extension;
+﻿using Extension;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bird : Enemy
 {
-    [Space]
-    [SerializeField] private List<Transform> transformTarget = new List<Transform>();
-    private int indexTarget = 0;
-    [SerializeField] private int amountTarget;
+    private Vector3 posTarget;
+    [SerializeField] private float radius;
+    private bool isSearchPos;
+    private float timer;
     protected override void Start()
     {
         base.Start();
-        amountTarget = transformTarget.Count;
     }
 
     protected override void Update()
     {
-        if (transformTarget.Count <= 0) return;
+        timer -= Time.deltaTime;
 
-
-        if (transformTarget.Count >= amountTarget)
+        if (timer < 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, transformTarget[indexTarget].position, speed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, transformTarget[indexTarget].position) < 0.1f)
+            if (!isSearchPos)
             {
-                indexTarget++;
-                Facing();
-
-                if (indexTarget >= amountTarget)
+                posTarget = new Vector3(transform.position.x + Random.Range(-5, 5), transform.position.y + Random.Range(-5, 5));
+                Collider2D col = Physics2D.OverlapCircle(posTarget, radius, mask);
+                if (col == null)
                 {
-                    indexTarget = 0;
+                    isSearchPos = true;
                 }
             }
         }
+        
+        if (isSearchPos)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, posTarget, speed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, posTarget) < 0.1f)
+            {
+                isSearchPos = false;
+                timer = 4f;
+            }
+        }
     }
+
+
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
@@ -42,12 +51,17 @@ public class Bird : Enemy
 
     protected override void hitCharacter(CharacterStatus character)
     {
-        character.takeDame();
-        character.StartCoroutine("increaseFallSpeedIn", 3f);
+        character.takeDame();       
     }
 
     public override void Die()
     {
         base.Die();
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(posTarget, radius);
     }
 }

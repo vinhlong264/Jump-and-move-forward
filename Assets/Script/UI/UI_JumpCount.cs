@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class UI_JumpCount : MonoBehaviour, IObserver
+public class UI_JumpCount : MonoBehaviour
 {
     private TextMeshProUGUI jumpCountText;
 
@@ -10,7 +10,7 @@ public class UI_JumpCount : MonoBehaviour, IObserver
         Observer.Instance.addObserver(ActionType.JumpCount, Notify);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.Instance.removeObserver(ActionType.JumpCount, Notify);
     }

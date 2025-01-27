@@ -12,7 +12,7 @@ public class Enemy : Entity
             CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
             if (character != null)
             {
-                if (character.transform.DotDirectionTo(transform, Vector2.down))
+                if(character.transform.position.y > transform.position.y && collision.GetContact(0).normal.y < 0)
                 {
                     Die();
                 }

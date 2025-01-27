@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [SerializeField] private Vector2 finalDirection;
+    private bool isTouch;
+    private Vector2 finalDirection;
     [SerializeField] private Vector2 laughDirection;
     [SerializeField] private int jumpCount;
     [SerializeField] private int currentJumpCount;
@@ -18,58 +19,50 @@ public class Player : Entity
 
     //Harmful effects
     private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
-    private bool isJump; // kiểm tra có đang nhảy không
+    private bool isJump;
 
-    private CharacterStatus characterStatus;
+
+    private SpriteRenderer sr;
+    private Material currentMaterial;
+    [SerializeField] private Material flashMaterial;
 
     protected override void Start()
     {
         base.Start();
-        characterStatus = GetComponent<CharacterStatus>();
 
+        sr = GetComponentInChildren<SpriteRenderer>();
+        currentMaterial = sr.material;
         currentJumpCount = jumpCount;
+        isTouch = true;
         knockBack = new Vector2(5, 10);
         InitializeDots();
     }
 
-    public void setUpPlayer(bool _isOppositeDirection , float _gravity)
-    {
-        isOppositeDirection = _isOppositeDirection;
-        rb.gravityScale = _gravity;
-    }
-
-
     protected override void Update()
     {
+        if (CharacterStatus.Instance.noJump) return;
 
         InputCharacter();
 
         facingController(getMouse().x);
 
         animatorChange();
-
-        if (isGroundDetected() && currentJumpCount <= 0)
-        {
-            currentJumpCount = jumpCount;
-        }
         Observer.Instance.Notify(ActionType.JumpCount, currentJumpCount);
     }
 
     private void InputCharacter()
     {
-        if (characterStatus.noJump || currentJumpCount <= 0) return;
+        if (!isTouch) return;
 
 
         if (Input.GetMouseButton(0) && currentJumpCount > 0)
         {
-            finalDirection = new Vector2(getMouse().normalized.x * laughDirection.x , getMouse().normalized.y * laughDirection.y);
-
+            finalDirection = new Vector2(getMouse().x * laughDirection.x, getMouse().y * laughDirection.y);
             for (int i = 0; i < Dots.Length; i++)
             {
                 Dots[i].transform.position = dotsPosition(i * betweenSpaceDot);
             }
-
-            rb.velocity = new Vector2(0, rb.velocity.y * characterStatus.airJump);
+            rb.velocity = new Vector2(0, rb.velocity.y * 0.3f);
             dotsActive(true);
         }
 
@@ -77,34 +70,38 @@ public class Player : Entity
         {
             AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
             Jump(finalDirection);
+            StartCoroutine(chechTouch());
             currentJumpCount--;
             dotsActive(false);
         }
     }
 
+    IEnumerator chechTouch()
+    {
+        isTouch = false;
+        yield return new WaitForSeconds(1f);
+        isTouch = true;
+    }
+
     private void Jump(Vector2 _dir)
     {
-
-        if (isOppositeDirection)
-        {
-            StartCoroutine(JumpForce(finalDirection));
-            isOppositeDirection = false;
-        }
-        else
-        {         
-            StartCoroutine(JumpForce(finalDirection));
-        }
+        StartCoroutine(JumpForce(_dir));
     }
 
 
     IEnumerator JumpForce(Vector2 dir)
     {
         isJump = true;
-        rb.velocity = new Vector2(dir.x, dir.y * 0.6f);
+        rb.velocity = new Vector2(dir.x, dir.y * 0.5f);
         yield return new WaitForSeconds(0.3f);
         if (!isGroundDetected())
         {
-            GameObject effectObj = Instantiate(effectPrefabs, Ground.position, Quaternion.identity);
+            GameObject effectObj = ObjectPooling.Instance.GetObj(effectPrefabs);
+            if (effectObj != null)
+            {
+                effectObj.transform.position = Ground.position;
+                effectObj.transform.rotation = Quaternion.identity;
+            }
         }
 
         rb.AddForce(dir, ForceMode2D.Impulse);
@@ -144,15 +141,17 @@ public class Player : Entity
     }
     protected override IEnumerator isKnockBack(float _second)
     {
+        sr.material = flashMaterial;
         rb.velocity = new Vector2(knockBack.x * -isFacingDirection, knockBack.y);
         yield return new WaitForSeconds(_second);
+        sr.material = currentMaterial;
     }
 
     private Vector2 getMouse()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 playerPos = transform.position;
-        return mousePos - playerPos;
+        return (mousePos - playerPos).normalized;
     }
     #region animDots
     private void InitializeDots()
@@ -160,16 +159,13 @@ public class Player : Entity
         Dots = new GameObject[amountDot];
         for (int i = 0; i < amountDot; i++)
         {
-            Dots[i] = Instantiate(dotPrefabs, transform.position, Quaternion.identity, dotParent.transform);
+            Dots[i] = Instantiate(dotPrefabs, dotParent.position, Quaternion.identity, dotParent.transform);
             Dots[i].SetActive(false);
         }
     }
 
     private void dotsActive(bool _isActive)
     {
-        if (characterStatus.noJump) return;
-
-
         for (int i = 0; i < Dots.Length; i++)
         {
             Dots[i].SetActive(_isActive);
@@ -178,7 +174,7 @@ public class Player : Entity
 
     private Vector2 dotsPosition(float _t)
     {
-        Vector2 dir = new Vector2(getMouse().normalized.x * laughDirection.x , getMouse().normalized.y * laughDirection.y);
+        Vector2 dir = finalDirection;
 
         Vector2 postion = (Vector2)transform.position + dir * _t + 0.5f * (Physics2D.gravity * rb.gravityScale) * Mathf.Pow(_t, 2);
 

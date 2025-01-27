@@ -10,34 +10,26 @@ public class Chest : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetTrigger("openChest");
-        }
-    }
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<CharacterStatus>() != null)
         {
-            if (collision.transform.DotDirectionTo(transform, Vector2.down))
+            if(collision.transform.position.y > transform.position.y && collision.GetContact(0).normal.y < 0)
             {
-                Debug.Log("Dot > 0");
                 animator.SetTrigger("openChest");
-            }
-            else
-            {
-                Debug.Log("Dot < 0 || Dot == 0");
+                openChest();
             }
         }
     }
 
     private void openChest()
     {
-        GameObject newScore = Instantiate(scorePrefabs, transform.position , Quaternion.identity);
+        GameObject newScore = ObjectPooling.Instance.GetObj(scorePrefabs);
+        if (newScore != null)
+        {
+            newScore.transform.position = transform.position;   
+            newScore.transform.rotation = Quaternion.identity;
+        }
 
         Vector2 velocity = new Vector2(Random.Range(-5,5),Random.Range(12,15));
 

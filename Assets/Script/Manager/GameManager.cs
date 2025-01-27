@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(instace.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void addScore()
@@ -41,6 +41,8 @@ public class GameManager : Singleton<GameManager>, ISaveManager
     {
         levelGame++;
     }
+
+    public int currentLevel() => levelGame;
 
     public void saveScore()
     {

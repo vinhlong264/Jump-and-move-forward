@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UI_LoadScene : MonoBehaviour,IObserver
+public class UI_LoadScene : MonoBehaviour
 {
     private Animator anim;
 
@@ -9,7 +9,7 @@ public class UI_LoadScene : MonoBehaviour,IObserver
         Observer.Instance.addObserver(ActionType.LoadScene, Notify);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.Instance.removeObserver(ActionType.LoadScene, Notify);
     }

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UI_Health : MonoBehaviour, IObserver
+public class UI_Health : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI healthText;
     private void OnEnable()
@@ -9,7 +9,7 @@ public class UI_Health : MonoBehaviour, IObserver
         Observer.Instance.addObserver(ActionType.Health, Notify);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.Instance.removeObserver(ActionType.Health, Notify);
     }

@@ -74,7 +74,6 @@ public class Monkey : Enemy
     protected override void hitCharacter(CharacterStatus character)
     {
         character.takeDame();
-        character.reverseDirection();
     }
 
     public override void Die()

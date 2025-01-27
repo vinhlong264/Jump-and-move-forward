@@ -12,6 +12,7 @@ public class QuestSystem : MonoBehaviour
     [SerializeField] private Question currentQuestion; // Câu hỏi
 
     [Header("UI")]
+    [SerializeField] private GameObject container;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI notifyAnswer;
     [SerializeField] private TextMeshProUGUI timeText;
@@ -32,12 +33,12 @@ public class QuestSystem : MonoBehaviour
 
 
 
-    private void OnEnable()
+    private void Awake()
     {
         Observer.Instance.addObserver(actionType, Notify);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         Observer.Instance.removeObserver(actionType, Notify);
     }

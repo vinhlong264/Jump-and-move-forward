@@ -28,7 +28,7 @@ public class Score : MonoBehaviour
         if (collision.gameObject.GetComponent<CharacterStatus>() != null)
         {
             GameManager.Instance.addScore();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

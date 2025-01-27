@@ -43,12 +43,19 @@ public class Login : MonoBehaviour
         string dataStore = File.ReadAllText(filePath);
 
         GameData gameData = JsonUtility.FromJson<GameData>(dataStore);
+
         foreach (var x in gameData.allUsers)
         {
             if (x.username == user.username && x.password == user.password)
             {
                 isLogin = true;
+                status.text = "Login finish";
                 break;
+            }
+            else if(x.username != user.username || x.password != user.password)
+            {
+                status.text = "Incorrect account information";
+                return;
             }
         }
 

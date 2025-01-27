@@ -15,7 +15,6 @@ public class SettingManager : MonoBehaviour
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             loadVolume();
-            Debug.Log(PlayerPrefs.GetFloat("musicSFX"));
         }
         else
         {

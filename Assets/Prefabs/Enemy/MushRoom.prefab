@@ -74,12 +74,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1706662909
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -170510855, guid: 8782ee2da8c2e534b8957f7c25e8af4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.4375, y: 2.4375}
@@ -120,10 +120,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016371727, y: 0.016371965}
+  m_Offset: {x: 0.016371727, y: 1.0321875}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.95, y: 1.95}
     newSize: {x: 2.4375, y: 2.4375}
     adaptiveTilingThreshold: 0.5
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9463549, y: 1.9463582}
+  m_Size: {x: 1.9463549, y: 1.8711147}
   m_EdgeRadius: 0
 --- !u!50 &1313037206281552236
 Rigidbody2D:
@@ -198,6 +198,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 0
+  isFacingDirection: -1
+  isFacingRight: 0
   Wall: {fileID: 0}
   distanceToWall: 0
   speed: 0

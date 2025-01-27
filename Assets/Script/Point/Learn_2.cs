@@ -14,6 +14,7 @@ public class Learn_2 : FinishBase
         if(collision.GetComponent<CharacterStatus>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
+            GameManager.Instance.winLevel();
             nextLevel(nameScene,sceneLevel);
         }
     }

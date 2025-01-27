@@ -57,7 +57,6 @@ public class Panda : Enemy
     protected override void hitCharacter(CharacterStatus character)
     {
         character.takeDame();
-        character.StartCoroutine("stopJumpIn", 2f);
     }
 
     public override void Die()

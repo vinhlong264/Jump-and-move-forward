@@ -17,8 +17,6 @@ public class Angry_bullet : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<CharacterStatus>() != null)
