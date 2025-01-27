@@ -32,8 +32,7 @@ public class QuestSystem : MonoBehaviour
                      private bool isDeadLine;
 
 
-
-    private void Awake()
+    private void OnEnable()
     {
         Observer.Instance.addObserver(actionType, Notify);
     }
@@ -45,7 +44,7 @@ public class QuestSystem : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false);
+        container.SetActive(false);
         listQuestion = questionData.informationQuestion.ToList();
         timeCheck = timeDuration;
         timeText.text = timeCheck.ToString();
@@ -150,7 +149,7 @@ public class QuestSystem : MonoBehaviour
         CharacterStatus.Instance.noJump = false;
         activeMap();
         StartCoroutine("transitionNextQuestion");
-        gameObject.SetActive(false);
+        container.SetActive(false);
     }
 
     private void activeMap()
@@ -161,7 +160,7 @@ public class QuestSystem : MonoBehaviour
 
     public void Notify(int value)
     {
-        gameObject.SetActive(true);
+        container.SetActive(true);
         CharacterStatus.Instance.noJump = true;
         isDeadLine = true;
     }
