@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class QuestSystem : MonoBehaviour
+public class QuestionSystem : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private QuestionSO questionData; // Data
@@ -63,10 +63,12 @@ public class QuestSystem : MonoBehaviour
             if(timeCheck <= 0)
             {
                 timeCheck = timeDuration;
-                GameObject newBullet = Instantiate(bullet, firePos.position, Quaternion.identity);
+                GameObject newBullet = ObjectPooling.Instance.GetObj(bullet);
                 if(newBullet != null)
                 {
-                    newBullet.GetComponent<Angry_bullet>().AttackTarget(CharacterStatus.Instance.transform, 5f);
+                    newBullet.transform.position = firePos.position;
+                    newBullet.transform.rotation = Quaternion.identity;
+                    newBullet.GetComponent<Angry_bullet>().AttackTarget(PlayerStats.Instance.transform, 5f);
                 }
 
                 Debug.Log("Quá thời hạn");
@@ -136,6 +138,12 @@ public class QuestSystem : MonoBehaviour
     {
         animUIQuestion.SetTrigger("UItransition");
     }
+    public void setActive() // Quản lý việc mở khóa map tiếp theo
+    {
+        PlayerStats.Instance.noJump = false;
+        activeMap();
+        StartCoroutine("transitionNextQuestion");
+    }
 
     IEnumerator transitionNextQuestion()
     {
@@ -144,13 +152,6 @@ public class QuestSystem : MonoBehaviour
         yield return new WaitForSeconds(1);
     }
 
-    private void setActive() // Quản lý việc mở khóa map tiếp theo
-    {
-        CharacterStatus.Instance.noJump = false;
-        activeMap();
-        StartCoroutine("transitionNextQuestion");
-        container.SetActive(false);
-    }
 
     private void activeMap()
     {
@@ -161,7 +162,7 @@ public class QuestSystem : MonoBehaviour
     public void Notify(int value)
     {
         container.SetActive(true);
-        CharacterStatus.Instance.noJump = true;
+        PlayerStats.Instance.noJump = true;
         isDeadLine = true;
     }
 }

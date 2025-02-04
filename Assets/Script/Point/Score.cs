@@ -25,7 +25,7 @@ public class Score : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
+        if (collision.gameObject.GetComponent<PlayerStats>() != null)
         {
             GameManager.Instance.addScore();
             gameObject.SetActive(false);

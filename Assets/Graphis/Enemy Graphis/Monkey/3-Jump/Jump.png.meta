@@ -126,12 +126,12 @@ TextureImporter:
       name: Jump_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 1
-        width: 19
-        height: 30
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Jump_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 32
         y: 0
-        width: 19
-        height: 29
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Jump_2
       rect:
         serializedVersion: 2
-        x: 70
-        y: 1
-        width: 4
-        height: 4
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,12 +189,12 @@ TextureImporter:
       name: Jump_3
       rect:
         serializedVersion: 2
-        x: 72
+        x: 96
         y: 0
-        width: 19
-        height: 27
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,27 +202,6 @@ TextureImporter:
       bones: []
       spriteID: 19232e63731904a4caa77499a882cab7
       internalID: 342919036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jump_4
-      rect:
-        serializedVersion: 2
-        x: 99
-        y: 0
-        width: 24
-        height: 28
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c6a29acb9d0983149bf1d704c61e77a6
-      internalID: -1566472684
       vertices: []
       indices: 
       edges: []
@@ -242,7 +221,6 @@ TextureImporter:
       Jump_1: 1563724844
       Jump_2: 553623190
       Jump_3: 342919036
-      Jump_4: -1566472684
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

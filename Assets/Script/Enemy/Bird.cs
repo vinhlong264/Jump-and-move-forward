@@ -1,6 +1,4 @@
-﻿using Extension;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Bird : Enemy
@@ -9,6 +7,7 @@ public class Bird : Enemy
     [SerializeField] private float radius;
     private bool isSearchPos;
     private float timer;
+    private Vector2 posDestination;
     protected override void Start()
     {
         base.Start();
@@ -16,42 +15,54 @@ public class Bird : Enemy
 
     protected override void Update()
     {
-        timer -= Time.deltaTime;
+        BehaviourEnemy();
+    }
 
-        if (timer < 0)
+    protected override void BehaviourEnemy()
+    {
+        timer -= Time.deltaTime;
+        if (!isSearchPos && timer < 0)
         {
-            if (!isSearchPos)
+            float randomX = Random.Range(-3, 3);
+            float randomY = Random.Range(-3, 3);
+            Vector2 dumpPos = new Vector2(randomX + transform.position.x, randomY + transform.position.y);
+            Debug.Log("Tìm được điểm đến: " + Physics2D.OverlapCircle(dumpPos, radius, mask));
+            if(!Physics2D.OverlapCircle(dumpPos , radius , mask))
             {
-                posTarget = new Vector3(transform.position.x + Random.Range(-5, 5), transform.position.y + Random.Range(-5, 5));
-                Collider2D col = Physics2D.OverlapCircle(posTarget, radius, mask);
-                if (col == null)
-                {
-                    isSearchPos = true;
-                }
+                posDestination = dumpPos;
+                isSearchPos = true;
             }
         }
-        
+
         if (isSearchPos)
         {
-            transform.position = Vector3.MoveTowards(transform.position, posTarget, speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, posTarget) < 0.1f)
+            if(transform.position.x < posDestination.x)
             {
-                isSearchPos = false;
-                timer = 4f;
+                transform.localScale = new Vector2(-1, 1);
             }
+            else if(transform.position.x > posDestination.x)
+            {
+                transform.localScale = new Vector2(1, 1);
+            }
+            StartCoroutine(Movement());
         }
     }
 
 
-
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator Movement()
     {
-        base.OnCollisionEnter2D(collision);
+        yield return new WaitForSeconds(1f);
+        transform.position = Vector2.MoveTowards(transform.position, posDestination, 2f * Time.deltaTime);
+        if (Vector2.Distance(transform.position, posDestination) < 0.1f)
+        {
+            isSearchPos = false;
+            timer = 5f;
+        }
     }
 
-    protected override void hitCharacter(CharacterStatus character)
+    protected override void hitCharacter(PlayerStats character)
     {
-        character.takeDame();       
+        character.takeDame();
     }
 
     public override void Die()
@@ -64,4 +75,5 @@ public class Bird : Enemy
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(posTarget, radius);
     }
+
 }

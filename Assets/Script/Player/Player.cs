@@ -40,7 +40,7 @@ public class Player : Entity
 
     protected override void Update()
     {
-        if (CharacterStatus.Instance.noJump) return;
+        if (PlayerStats.Instance.noJump) return;
 
         InputCharacter();
 
@@ -94,7 +94,7 @@ public class Player : Entity
         isJump = true;
         rb.velocity = new Vector2(dir.x, dir.y * 0.5f);
         yield return new WaitForSeconds(0.3f);
-        if (!isGroundDetected())
+        if (!isGroundDetected() && !isOppositeDirection)
         {
             GameObject effectObj = ObjectPooling.Instance.GetObj(effectPrefabs);
             if (effectObj != null)

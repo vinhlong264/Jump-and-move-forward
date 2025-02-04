@@ -11,7 +11,7 @@ public class Learn_2 : FinishBase
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<CharacterStatus>() != null)
+        if(collision.GetComponent<PlayerStats>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
             GameManager.Instance.winLevel();

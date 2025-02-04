@@ -2,61 +2,26 @@
 
 public class Monkey : Enemy
 {
-    [SerializeField] private float timeIdle = 2;
+    [SerializeField] private float timeIdle;
+    [SerializeField] private float timeJump;
     [SerializeField] private bool jump;
     [SerializeField] private Vector2 jumpForce;
+    private float timeState;
     private bool moving;
-
+    private bool isJumping;
     protected override void Start()
     {
         base.Start();
+        timeState = timeIdle;
+
     }
 
     protected override void Update()
     {
-        timeIdle -= Time.deltaTime;
-
-        ColisionCheck();
-
-        State();
-
+        BehaviourEnemy();
         animationChange();
     }
 
-    private void State()
-    {
-        if (timeIdle > 0)
-        {
-            moving = false;
-        }
-        else
-        {
-            moving = true;
-            rb.velocity = new Vector2(speed * isFacingDirection, rb.velocity.y);
-        }
-
-
-        if (!isGroundDetected() && !jump)
-        {
-            jump = true;
-            //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            rb.velocity = jumpForce;
-        }
-    }
-
-    private void ColisionCheck()
-    {
-        if (isWallDetected())
-        {
-            timeIdle = 2;
-            Facing();
-        }
-
-        if (isGroundDetected())
-        {
-            jump = false;
-        }
-    }
 
     private void animationChange()
     {
@@ -65,13 +30,7 @@ public class Monkey : Enemy
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
-
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        base.OnCollisionEnter2D(collision);
-    }
-
-    protected override void hitCharacter(CharacterStatus character)
+    protected override void hitCharacter(PlayerStats character)
     {
         character.takeDame();
     }
@@ -79,5 +38,36 @@ public class Monkey : Enemy
     public override void Die()
     {
         base.Die();
+    }
+
+    protected override void BehaviourEnemy()
+    {
+        timeState -= Time.deltaTime;
+        if (timeState < 0 && isGroundDetected())
+        {
+            moving = true;
+            isJumping = false;
+            rb.velocity = new Vector2(speed * isFacingDirection, rb.velocity.y);
+            if (isWallDetected())
+            {
+                moving = false;
+                Facing();
+                timeState = timeJump;
+            }
+        }
+
+
+        if (!isGroundDetected() && !isJumping)
+        {
+            moving = false;
+            isJumping = true;
+            timeState = timeIdle;
+            rb.AddForce(new Vector2(jumpForce.x * isFacingDirection , jumpForce.y), ForceMode2D.Impulse);
+        }
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
     }
 }

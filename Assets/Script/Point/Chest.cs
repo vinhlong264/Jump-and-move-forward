@@ -12,7 +12,7 @@ public class Chest : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
+        if (collision.gameObject.GetComponent<PlayerStats>() != null)
         {
             if(collision.transform.position.y > transform.position.y && collision.GetContact(0).normal.y < 0)
             {

@@ -4,9 +4,9 @@ public class Bubble : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<CharacterStatus>() != null)
+        if(collision.GetComponent<PlayerStats>() != null)
         {
-            CharacterStatus status = collision.GetComponent<CharacterStatus>();
+            PlayerStats status = collision.GetComponent<PlayerStats>();
             status.StartCoroutine("removeGravityBy", 3f);
             Destroy(gameObject);
         }

@@ -19,9 +19,9 @@ public class Angry_bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<CharacterStatus>() != null)
+        if(collision.GetComponent<PlayerStats>() != null)
         {
-            CharacterStatus character = collision.GetComponent<CharacterStatus>();
+            PlayerStats character = collision.GetComponent<PlayerStats>();
             if(character != null)
             {
                 character.takeDame();

@@ -54,7 +54,7 @@ public class Panda : Enemy
         base.OnCollisionEnter2D(collision);
     }
 
-    protected override void hitCharacter(CharacterStatus character)
+    protected override void hitCharacter(PlayerStats character)
     {
         character.takeDame();
     }
@@ -62,5 +62,10 @@ public class Panda : Enemy
     public override void Die()
     {
         base.Die();
+    }
+
+    protected override void BehaviourEnemy()
+    {
+        throw new System.NotImplementedException();
     }
 }

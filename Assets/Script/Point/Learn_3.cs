@@ -10,7 +10,7 @@ public class Learn_3 : FinishBase
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<CharacterStatus>() != null)
+        if(collision.GetComponent<PlayerStats>() != null)
         {
             savePoint(GameManager.Instance.pointManager);
             GameManager.Instance.saveScore();
@@ -21,7 +21,7 @@ public class Learn_3 : FinishBase
                 UI_YouWIn.SetActive(true);
             }
 
-            CharacterStatus.Instance.noJump = true;
+            PlayerStats.Instance.noJump = true;
         }
     }
 

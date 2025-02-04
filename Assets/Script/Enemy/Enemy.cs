@@ -1,15 +1,20 @@
 ﻿using Extension;
 using UnityEngine;
-public class Enemy : Entity
+public abstract class Enemy : Entity
 {
     [SerializeField] protected Transform Wall;
     [SerializeField] protected float distanceToWall;
     [SerializeField] protected float speed;
+
+
+    protected abstract void BehaviourEnemy();
+
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<CharacterStatus>() != null)
+        if (collision.gameObject.GetComponent<PlayerStats>() != null)
         {
-            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
+            PlayerStats character = collision.gameObject.GetComponent<PlayerStats>();
             if (character != null)
             {
                 if(character.transform.position.y > transform.position.y && collision.GetContact(0).normal.y < 0)
@@ -24,7 +29,7 @@ public class Enemy : Entity
         }
     }
 
-    protected virtual void hitCharacter(CharacterStatus character)
+    protected virtual void hitCharacter(PlayerStats character)
     {
 
     }

@@ -1,7 +1,7 @@
 ﻿using Extension;
 using UnityEngine;
 
-public class CharacterStatus : Singleton<CharacterStatus>
+public class PlayerStats : Singleton<PlayerStats>
 {
     private Player player;
     private SpriteRenderer sr;

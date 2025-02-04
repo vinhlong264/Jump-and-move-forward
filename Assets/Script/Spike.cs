@@ -6,9 +6,9 @@ public class Spike : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<CharacterStatus>() != null)
+        if(collision.gameObject.GetComponent<PlayerStats>() != null)
         {
-            CharacterStatus character = collision.gameObject.GetComponent<CharacterStatus>();
+            PlayerStats character = collision.gameObject.GetComponent<PlayerStats>();
             if(character != null)
             {
                 character.takeDame();
