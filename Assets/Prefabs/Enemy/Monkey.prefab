@@ -229,7 +229,7 @@ MonoBehaviour:
   timeIdle: 1
   timeJump: 3
   jump: 0
-  jumpForce: {x: 5, y: 10}
+  jumpForce: {x: 3, y: 10}
 --- !u!1 &6176978849569830302
 GameObject:
   m_ObjectHideFlags: 0

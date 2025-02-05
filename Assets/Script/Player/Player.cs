@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Entity
 {
     private bool isTouch;
     private Vector2 finalDirection;
+    private float lastTime;
+    [SerializeField] private float timeDelay;
     [SerializeField] private Vector2 laughDirection;
     [SerializeField] private int jumpCount;
     [SerializeField] private int currentJumpCount;
@@ -18,7 +21,7 @@ public class Player : Entity
     [SerializeField] private GameObject[] Dots;
 
     //Harmful effects
-    private bool isOppositeDirection;// Biến tạo hiệu ứng nhảy ngược hướng
+    public bool isOppositeDirection { get; set; }// Biến tạo hiệu ứng nhảy ngược hướng
     private bool isJump;
 
 
@@ -34,6 +37,7 @@ public class Player : Entity
         currentMaterial = sr.material;
         currentJumpCount = jumpCount;
         isTouch = true;
+        isJump = false;
         knockBack = new Vector2(5, 10);
         InitializeDots();
     }
@@ -45,9 +49,19 @@ public class Player : Entity
         InputCharacter();
 
         facingController(getMouse().x);
-
         animatorChange();
         Observer.Instance.Notify(ActionType.JumpCount, currentJumpCount);
+    }
+
+
+    private void FixedUpdate()
+    {
+        if(CastCheckGround().collider != null && rb.velocity.y <= 0 && Time.time >= lastTime + timeDelay)
+        {
+            lastTime = Time.time;
+            isJump = false;
+            currentJumpCount = jumpCount;
+        }
     }
 
     private void InputCharacter()
@@ -69,12 +83,24 @@ public class Player : Entity
         if (Input.GetMouseButtonUp(0) && currentJumpCount > 0)
         {
             AudioManager.Instance.PlaySound(SoundType.JUMP, 1);
-            Jump(finalDirection);
+
+            if (isOppositeDirection)
+            {
+                Jump(-finalDirection);
+                isOppositeDirection = false;
+            }
+            else
+            {
+                Jump(finalDirection);
+            }
+
             StartCoroutine(chechTouch());
             currentJumpCount--;
             dotsActive(false);
         }
     }
+
+
 
     IEnumerator chechTouch()
     {
@@ -86,6 +112,11 @@ public class Player : Entity
     private void Jump(Vector2 _dir)
     {
         StartCoroutine(JumpForce(_dir));
+    }
+
+    private RaycastHit2D CastCheckGround()
+    {
+        return Physics2D.Raycast(Ground.position, Vector2.down, distanceToGround, mask);
     }
 
 
@@ -125,15 +156,6 @@ public class Player : Entity
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (isGroundDetected())
-        {
-            currentJumpCount = jumpCount;
-            isJump = false;
-        }
-    }
-
     public void isHit()
     {
         anim.SetTrigger("isHit");
@@ -153,6 +175,14 @@ public class Player : Entity
         Vector2 playerPos = transform.position;
         return (mousePos - playerPos).normalized;
     }
+
+    protected override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(Ground.transform.position , new Vector3(Ground.position.x , Ground.position.y - distanceToGround , Ground.position.z));
+    }
+
+
     #region animDots
     private void InitializeDots()
     {

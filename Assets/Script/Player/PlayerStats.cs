@@ -1,4 +1,5 @@
 ﻿using Extension;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerStats : Singleton<PlayerStats>
@@ -71,5 +72,10 @@ public class PlayerStats : Singleton<PlayerStats>
     public int getCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void ReverseDirection()
+    {
+        player.isOppositeDirection = true;       
     }
 }
