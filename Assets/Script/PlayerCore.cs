@@ -25,12 +25,16 @@ public class PlayerCore: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+
         Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         dir.z = 0;
         dir.Normalize();
         if (Input.GetKeyDown(KeyCode.Mouse0) && isJumping)
         {
-            if ((dir * jumpForce).magnitude < transform.position.magnitude) return;
+            Debug.Log((dir * jumpForce).magnitude);
+            if (isJumping && (dir * jumpForce).y < 0) return;
 
 
 
@@ -84,6 +88,10 @@ public class PlayerCore: MonoBehaviour
                 isWall = false;
             }
         }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        }
         animationHandler();
     }
 
@@ -92,10 +100,7 @@ public class PlayerCore: MonoBehaviour
         animator.SetBool("Ground", isJumping);
         animator.SetBool("JumpWall", isWall);
         animator.SetBool("DoubleJump", CanDoubleJump);
-        if (!isGround)
-        {
-            animator.SetFloat("yVelocity", rb.velocity.y);
-        }
+        animator.SetFloat("yVelocity" , rb.velocity.y);
 
     }
 
@@ -121,5 +126,14 @@ public class PlayerCore: MonoBehaviour
             CanDoubleJump = false;
         }
 
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isWall = false;
+        }
     }
 }
