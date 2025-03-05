@@ -82,7 +82,9 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
     public void SaveGame(ref UserData _data)
     {
+        Debug.Log(this.levelGame);
         _data.levelGame = this.levelGame;
+        Debug.Log("level Game: " +this.levelGame);
 
         _data.point = this.pointManager;
 
@@ -98,8 +100,10 @@ public class GameManager : Singleton<GameManager>, ISaveManager
 
         foreach (var item in listItems)
         {
+            Debug.Log(item.itemID);
             _data.badgeList.Add(item.itemID);
         }
+        Debug.Log(_data.badgeList.Count);
     }
 
 

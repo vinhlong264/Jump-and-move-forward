@@ -24,6 +24,11 @@ public class Register : MonoBehaviour
         user = new UserData();
     }
 
+    private void OnDisable()
+    {
+        Status.text = "";
+    }
+
     public void userRegister()
     {
         user.username = userName.text;

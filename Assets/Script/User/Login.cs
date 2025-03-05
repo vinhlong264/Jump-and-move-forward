@@ -21,6 +21,11 @@ public class Login : MonoBehaviour
         Debug.Log(Application.persistentDataPath);
     }
 
+    private void OnDisable()
+    {
+        status.text = "";
+    }
+
     public void userLogin()
     {
         UserData user = new UserData();
@@ -43,19 +48,15 @@ public class Login : MonoBehaviour
         string dataStore = File.ReadAllText(filePath);
 
         GameData gameData = JsonUtility.FromJson<GameData>(dataStore);
+        Debug.Log(user.username + " - " + user.password);
 
         foreach (var x in gameData.allUsers)
         {
-            if (x.username == user.username && x.password == user.password)
+            if (x.username.ToLower() == user.username.ToLower() && x.password == user.password)
             {
                 isLogin = true;
                 status.text = "Login finish";
                 break;
-            }
-            else if(x.username != user.username || x.password != user.password)
-            {
-                status.text = "Incorrect account information";
-                return;
             }
         }
 
@@ -66,6 +67,10 @@ public class Login : MonoBehaviour
             Debug.Log("Đăng nhập thành công");
             Observer.Instance.Notify(ActionType.LoadScene, 0);
             StartCoroutine(loadScene());
+        }
+        else
+        {
+            status.text = "Incorrect account information";
         }
     }
 

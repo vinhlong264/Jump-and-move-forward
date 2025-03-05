@@ -67,6 +67,7 @@ public class SaveManager : Singleton<SaveManager>
     public void SaveGame() // Lưu dữ liệu game
     {
         _userData = FindUserManager();
+        Debug.Log(_userData.username);
 
         foreach (ISaveManager saveManager in saveManagers)
         {
@@ -77,7 +78,7 @@ public class SaveManager : Singleton<SaveManager>
 
         dataHander.SaveGame(_gameData);
 
-        Debug.Log("Save Finish");
+        Debug.Log("Save Finish: "+ _gameData);
 
     }
 

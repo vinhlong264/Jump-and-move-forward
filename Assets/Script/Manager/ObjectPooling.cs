@@ -22,8 +22,9 @@ public class ObjectPooling : Singleton<ObjectPooling>
                 return getObj;
             }
         }
+
         GameObject tmp = Instantiate(baseObj);
-        pools.Add(baseObj , new List<GameObject>());
+        pools.Add(baseObj, new List<GameObject>());
         pools[baseObj].Add(tmp);
         tmp.SetActive(true);
         return tmp;
