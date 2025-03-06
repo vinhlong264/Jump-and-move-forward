@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         listItems.Add(_item);
     }
 
-    public void LoadGame(UserData _data)
+    public void LoadGame(GameData _data)
     {
         //Gán lại dữ liệu từ phía DataBase
         this.levelGame = _data.levelGame;
@@ -80,15 +80,17 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         }
     }
 
-    public void SaveGame(ref UserData _data)
+    public void SaveGame(ref GameData _data)
     {
-        Debug.Log(this.levelGame);
         _data.levelGame = this.levelGame;
-        Debug.Log("level Game: " +this.levelGame);
+        Debug.Log(_data.levelGame);
 
         _data.point = this.pointManager;
 
-        _data.listScoreData.Clear();
+        if(_data.listScoreData.Count > 0)
+        {
+            _data.listScoreData.Clear();
+        }
 
         foreach (var score in this.listScore)
         {
@@ -96,16 +98,16 @@ public class GameManager : Singleton<GameManager>, ISaveManager
         }
 
 
-        _data.badgeList.Clear(); // xóa đi những phần tử cũ
+        if(_data.badgeList.Count > 0)
+        {
+            _data.badgeList.Clear(); // xóa đi những phần tử cũ
+        }
 
         foreach (var item in listItems)
         {
-            Debug.Log(item.itemID);
             _data.badgeList.Add(item.itemID);
         }
-        Debug.Log(_data.badgeList.Count);
     }
-
 
     private List<ItemSO> GetItemDataBase()
     {

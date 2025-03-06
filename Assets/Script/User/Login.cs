@@ -26,61 +26,61 @@ public class Login : MonoBehaviour
         status.text = "";
     }
 
-    public void userLogin()
-    {
-        UserData user = new UserData();
-        //user = GameManager.Instance.user;
+    //public void userLogin()
+    //{
+    //    UserData user = new UserData();
+    //    //user = GameManager.Instance.user;
 
-        user.username = userName.text;
-        user.password = password.text;
+    //    user.username = userName.text;
+    //    user.password = password.text;
 
-        if (!File.Exists(filePath))
-        {
-            Debug.Log("File không tồn tại");
-            return;
-        }
+    //    if (!File.Exists(filePath))
+    //    {
+    //        Debug.Log("File không tồn tại");
+    //        return;
+    //    }
 
-        if (string.IsNullOrEmpty(filePath))
-        {
-            status.text = "Vui lòng không để các trường bị trống";
-        }
+    //    if (string.IsNullOrEmpty(filePath))
+    //    {
+    //        status.text = "Vui lòng không để các trường bị trống";
+    //    }
 
-        string dataStore = File.ReadAllText(filePath);
+    //    string dataStore = File.ReadAllText(filePath);
 
-        GameData gameData = JsonUtility.FromJson<GameData>(dataStore);
-        Debug.Log(user.username + " - " + user.password);
+    //    GameData gameData = JsonUtility.FromJson<GameData>(dataStore);
+    //    Debug.Log(user.username + " - " + user.password);
 
-        foreach (var x in gameData.allUsers)
-        {
-            if (x.username.ToLower() == user.username.ToLower() && x.password == user.password)
-            {
-                isLogin = true;
-                status.text = "Login finish";
-                break;
-            }
-        }
+    //    foreach (var x in gameData.allUsers)
+    //    {
+    //        if (x.username.ToLower() == user.username.ToLower() && x.password == user.password)
+    //        {
+    //            isLogin = true;
+    //            status.text = "Login finish";
+    //            break;
+    //        }
+    //    }
 
-        if (isLogin)
-        {
-            DataOnly.UserName = user.username;
-            Debug.Log(DataOnly.UserName);
-            Debug.Log("Đăng nhập thành công");
-            Observer.Instance.Notify(ActionType.LoadScene, 0);
-            StartCoroutine(loadScene());
-        }
-        else
-        {
-            status.text = "Incorrect account information";
-        }
-    }
+    //    if (isLogin)
+    //    {
+    //        DataOnly.UserName = user.username;
+    //        Debug.Log(DataOnly.UserName);
+    //        Debug.Log("Đăng nhập thành công");
+    //        Observer.Instance.Notify(ActionType.LoadScene, 0);
+    //        StartCoroutine(loadScene());
+    //    }
+    //    else
+    //    {
+    //        status.text = "Incorrect account information";
+    //    }
+    //}
 
 
-    IEnumerator loadScene()
-    {
-        Observer.Instance.Notify(ActionType.LoadScene, 0);
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Menu");
-    }
+    //IEnumerator loadScene()
+    //{
+    //    Observer.Instance.Notify(ActionType.LoadScene, 0);
+    //    yield return new WaitForSeconds(1);
+    //    SceneManager.LoadScene("Menu");
+    //}
 
 
 }

@@ -9,7 +9,9 @@ public class SaveManager : Singleton<SaveManager>
     private FileDataHander dataHander; // lưu trữ vào file
     private string fileName = "GameData.json"; // tên file
     private GameData _gameData;
-    private UserData _userData;
+
+
+    public FileDataHander DataHander => dataHander;
 
     protected override void Awake()
     {
@@ -29,67 +31,35 @@ public class SaveManager : Singleton<SaveManager>
 
     public void NewGame()
     {
-        _gameData = new GameData()
-        {
-            allUsers = new List<UserData>()
-            {
-                new UserData()
-                {
-                    levelGame = 0,
-                    listScoreData = new List<float>(),
-                    badgeList = new List<string>()
-                }
-            }
-        }; // Khởi tạo dữ liệu game khi người chơi mới tải game
+        _gameData = new GameData();
     }
 
     public void LoadData()
     {
         _gameData = dataHander.loadGame();
 
-        var get = FindUserManager();
-
-        if (get != null)
-        {
-            _userData = get;
-        }
-        else
+        if (_gameData == null) // Nếu không có dữ liệu thì tạo game mới
         {
             NewGame();
         }
 
-        foreach (ISaveManager saveManager in saveManagers)
+
+        foreach (ISaveManager manager in saveManagers)
         {
-            saveManager.LoadGame(_userData);
+            manager.LoadGame(_gameData);
         }
+
     }
 
-    public void SaveGame() // Lưu dữ liệu game
+    public void SaveData()
     {
-        _userData = FindUserManager();
-        Debug.Log(_userData.username);
-
-        foreach (ISaveManager saveManager in saveManagers)
-        {
-            saveManager.SaveGame(ref _userData);
-        }
-
-        //_gameData.allUsers.Add(_userData);
-
+        GameManager.instace.SaveGame( ref _gameData);
         dataHander.SaveGame(_gameData);
-
-        Debug.Log("Save Finish: "+ _gameData);
-
     }
 
     private void OnApplicationQuit()
     {
-        SaveGame();
-    }
-
-    private UserData FindUserManager()
-    {
-        return _gameData.allUsers.FirstOrDefault(x => x.username == DataOnly.UserName); // Lấy ra người chơi đăng nhập
+        SaveData();
     }
 
 

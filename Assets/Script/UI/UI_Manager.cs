@@ -27,13 +27,19 @@ public class UI_Manager : MonoBehaviour
     }
     public void logOut()
     {
-        StartCoroutine(loadScene());
+        StartCoroutine(loadScene("MenuFirst"));
     }
 
-    IEnumerator loadScene()
+    IEnumerator loadScene(string nameScene)
     {
         Observer.Instance.Notify(ActionType.LoadScene, 0);
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("LoginAndRegister");
+        SceneManager.LoadScene(nameScene);
     }
+
+    public void playBtnHandler()
+    {
+        StartCoroutine(loadScene("Menu"));
+    }
+
 }
