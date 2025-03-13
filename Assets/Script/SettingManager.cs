@@ -51,8 +51,8 @@ public class SettingManager : MonoBehaviour
         if(pauseGameObj != null)
         {
             pauseGameObj.SetActive(false);
-            PlayerStats.Instance.noJump = false;
             Time.timeScale = 1f;
+            PlayerStats.Instance.noJump = false;
         }
     }
 

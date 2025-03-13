@@ -11509,6 +11509,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1314848374283521989, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 396.8076
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314848374283521989, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.3395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314848374283521989, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 137
+      objectReference: {fileID: 0}
     - target: {fileID: 1754049648892347111, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -11536,6 +11548,46 @@ PrefabInstance:
     - target: {fileID: 1754049648892347111, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283530361801868309, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283530361801868309, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283530361801868309, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283530361801868309, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3342299369425512420, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3342299369425512420, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3342299369425512420, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006532714141299735, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006532714141299735, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006532714141299735, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8339082816259941026, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
       propertyPath: m_Pivot.x
@@ -11616,6 +11668,18 @@ PrefabInstance:
     - target: {fileID: 8339082816259941026, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812482360263689814, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 396.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812482360263689814, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4.3388
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812482360263689814, guid: 26277dea245f8c848b4819f3ce3a511d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12236,7 +12300,7 @@ Transform:
   m_GameObject: {fileID: 1342894441}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.2302, y: 168.9771, z: 1}
+  m_LocalPosition: {x: -0.2302, y: 150.2963, z: 1}
   m_LocalScale: {x: 0.23445477, y: 0.406972, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12288,7 +12352,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 149.20433, y: 981.3992}
+  m_Size: {x: 149.20433, y: 1073.2029}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
