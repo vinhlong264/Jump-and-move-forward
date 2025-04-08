@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerCore: MonoBehaviour
+public class PlayerCore : MonoBehaviour
 {
     [SerializeField] private Vector2 jumpForce;
     private bool isDoubleJump;
@@ -14,57 +12,86 @@ public class PlayerCore: MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sr;
+    private Vector3 mousePos;
+    [SerializeField] private LayerMask mask;
+    [SerializeField] private float direction;
+    [SerializeField] private float isDirRight;
+    private bool isExcute;
+
+    [SerializeField] private Button left;
+    [SerializeField] private Button right;
     void Start()
     {
         isDoubleJump = false;
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+
+
+        left.onClick.AddListener(() =>
+        {
+            isExcute = true;
+            isDirRight = -1;
+            rb.velocity = Vector3.zero;
+        });
+
+        right.onClick.AddListener(() =>
+        {
+            isExcute = true;
+            isDirRight = 1;
+            rb.velocity = Vector3.zero;
+        });
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isExcute && !isWall)
+        {
+            rb.velocity =  new Vector2(jumpForce.x * isDirRight , jumpForce.y);
+            isExcute = false;
+        }
 
-        
+        if (isWall)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
+            if (isExcute)
+            {
+                rb.velocity = new Vector2(jumpForce.x * isDirRight , jumpForce.y);
+                isExcute = false;
+            }
+        }
+    }
 
+    private void MainFunction()
+    {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         dir.z = 0;
         dir.Normalize();
+
+        if (dir.x > transform.position.x)
+        {
+            isDirRight = 1f;
+        }
+        else
+        {
+            isDirRight = -1f;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && isJumping)
         {
-            Debug.Log((dir * jumpForce).magnitude);
             if (isJumping && (dir * jumpForce).y < 0) return;
-
-
-
-            if (dir.x > transform.position.x)
-            {
-                sr.flipX = false;
-            }
-            else if (dir.x < transform.position.x)
-            {
-                sr.flipX = true;
-            }
             isJumping = false;
             rb.velocity = dir * jumpForce;
             isDoubleJump = true;
             return;
         }
 
-        if(isDoubleJump && !isJumping)
+        if (isDoubleJump && !isJumping)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if(dir.x > transform.position.x)
-                {
-                    sr.flipX = false;
-                }else if(dir.x < transform.position.x)
-                {
-                    sr.flipX = true;
-                }
-
-
                 CanDoubleJump = true;
                 isDoubleJump = false;
                 rb.velocity = dir * jumpForce;
@@ -73,17 +100,9 @@ public class PlayerCore: MonoBehaviour
 
         if (isWall)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.1f);
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if (dir.x > transform.position.x)
-                {
-                    sr.flipX = false;
-                }
-                else if (dir.x < transform.position.x)
-                {
-                    sr.flipX = true;
-                }
                 rb.velocity = dir * jumpForce;
                 isWall = false;
             }
@@ -92,15 +111,31 @@ public class PlayerCore: MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
+
+        if (hit() && isDirRight > 0)
+        {
+            transform.Rotate(0, 180, 0);
+        }
+        else if (hit() && isDirRight < 0)
+        {
+            transform.Rotate(0, -180, 0);
+        }
+
         animationHandler();
+
+        isExcute = false;
+
+        return;
     }
+
+    RaycastHit2D hit() => Physics2D.Raycast(transform.position, Vector2.right * isDirRight, direction, mask);
 
     private void animationHandler()
     {
         animator.SetBool("Ground", isJumping);
         animator.SetBool("JumpWall", isWall);
         animator.SetBool("DoubleJump", CanDoubleJump);
-        animator.SetFloat("yVelocity" , rb.velocity.y);
+        animator.SetFloat("yVelocity", rb.velocity.y);
 
     }
 
@@ -135,5 +170,11 @@ public class PlayerCore: MonoBehaviour
         {
             isWall = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position , new Vector3(transform.position.x + direction * isDirRight , transform.position.y , transform.position.z));  
     }
 }
